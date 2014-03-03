@@ -2,7 +2,7 @@
 
 use Stillat\Common\Collections\ArraySortingInterface;
 
-class BaseSorter implements ArraySortingInterface {
+abstract class BaseSorter implements ArraySortingInterface {
 
 	protected $forwardSort = true;
 
@@ -14,5 +14,5 @@ class BaseSorter implements ArraySortingInterface {
 	abstract function sort(array $collection);
 
 	abstract function tros(array $collection);
-
+	
 }
