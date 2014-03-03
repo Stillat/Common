@@ -1,8 +1,8 @@
 <?php namespace Stillat\Common\Collections\Sorting;
 
-use Stillat\Common\Collections\ArraySortingInterface;
+use Stillat\Common\Collections\Sorting\BaseSorter;
 
-class BubbleSorter implements ArraySortingInterface {
+class BubbleSorter extends BaseSorter {
 
 	/**
 	 * Sorts the given array using a bubble sort algorithm.
@@ -20,7 +20,7 @@ class BubbleSorter implements ArraySortingInterface {
 
 			for ($i = 0; $i < $count; $i++)
 			{
-				if ($collection[$i] > $collection[$i + 1])
+				if ($collection[$i] > $collection[$i + 1] == $this->forwardSort)
 				{
 					// Store the current array item in a variable.
 					$currentItem = $collection[$i];
@@ -36,6 +36,20 @@ class BubbleSorter implements ArraySortingInterface {
 
 		} while ($swapped);
 
+		return $collection;
+	}
+
+	/**
+	 * Inversely sorts the given array using a bubble sort algorithm
+	 *
+	 * @param  array $collection
+	 * @return array
+	 */
+	public function tros(array $collection)
+	{
+		$this->changeDirection(false);
+		$collection = $this->sort($collection);
+		$this->changeDirection(true);
 		return $collection;
 	}
 
