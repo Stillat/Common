@@ -1,8 +1,8 @@
 <?php namespace Stillat\Common\Collections\Sorting;
 
-use Stillat\Common\Collections\ArraySortingInterface;
+use Stillat\Common\Collections\Sorting\BaseSorter;
 
-class QuickSorter implements ArraySortingInterface {
+class QuickSorter extends BaseSorter  {
 
 	/**
 	 * Sorts the given array using a quick sort algorithm.
@@ -29,7 +29,7 @@ class QuickSorter implements ArraySortingInterface {
 
 		foreach ($collection as $key => $value)
 		{
-			if ($value < $pivot)
+			if ($value < $pivot == $this->forwardSort)
 			{
 				$leftCollection[$key] = $value;
 			}
@@ -42,6 +42,20 @@ class QuickSorter implements ArraySortingInterface {
 		return array_merge($this->sort($leftCollection),
 						   array($sortPivot => $pivot),
 						   $this->sort($rightCollection));
+	}
+
+	/**
+	 * Inversely sorts the given array using a quick sort algorithm
+	 *
+	 * @param  array $collection
+	 * @return array
+	 */
+	public function tros(array $collection)
+	{
+		$this->changeDirection(false);
+		$collection = $this->sort($collection);
+		$this->changeDirection(true);
+		return $collection;
 	}
 
 }
