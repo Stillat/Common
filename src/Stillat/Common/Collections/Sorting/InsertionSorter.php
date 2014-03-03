@@ -1,8 +1,8 @@
 <?php namespace Stillat\Common\Collections\Sorting;
 
-use Stillat\Common\Collections\ArraySortingInterface;
+use Stillat\Common\Collections\Sorting\BaseSorter;
 
-class InsertionSorter implements ArraySortingInterface {
+class InsertionSorter extends BaseSorter {
 
 	/**
 	 * Sorts the given array using an insertion sort algorithm.
@@ -19,7 +19,7 @@ class InsertionSorter implements ArraySortingInterface {
 			$currentElement = $collection[$i];
 			$currentIndex   = $i;
 
-			while ($currentIndex > 0 and $collection[$currentIndex - 1] > $currentElement)
+			while (($currentIndex > 0 and $collection[$currentIndex - 1] > $currentElement) == $this->forwardSort)
 			{
 				$collection[$currentIndex] = $collection[$currentIndex - 1];
 				$currentIndex = $currentIndex - 1;
@@ -28,6 +28,20 @@ class InsertionSorter implements ArraySortingInterface {
 			$collection[$currentIndex] = $currentElement;
 		}
 
+		return $collection;
+	}
+
+	/**
+	 * Inversely sorts the given array using an insertion sort algorithm
+	 *
+	 * @param  array $collection
+	 * @return array
+	 */
+	public function tros(array $collection)
+	{
+		$this->changeDirection(false);
+		$collection = $this->sort($collection);
+		$this->changeDirection(true);
 		return $collection;
 	}
 
