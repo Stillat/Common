@@ -1,7 +1,7 @@
 <?php namespace Stillat\Common\Database\Tenant;
 
 use Illuminate\Foundation\Application;
-use Stillat\Common\Database\Tenant\TenantException;
+use Stillat\Common\ArgumentException;
 use Stillat\Common\Database\Tenant\SchemaCreator\SchemaCreatorManager;
 
 class TenantManager {
@@ -328,7 +328,7 @@ class TenantManager {
 	 * Adds a migration to the manager's migration list.
 	 *
 	 * @param string $migrationName
-	 * @throws TenantException
+	 * @throws ArgumentException
 	 */
 	public function addMigration($migrationName)
 	{
@@ -343,12 +343,12 @@ class TenantManager {
 			}
 			else
 			{
-				throw new TenantException("The class '{$migrationName}' does not extend '".self::LARAVEL_MIGRATION_BASE_CLASS."'");
+				throw new ArgumentException("The class '{$migrationName}' does not extend '".self::LARAVEL_MIGRATION_BASE_CLASS."'");
 			}
 		}
 		else
 		{
-			throw new TenantException("The migration '{$migrationName}' does not exist, or cannot be found.");
+			throw new ArgumentException("The migration '{$migrationName}' does not exist, or cannot be found.");
 		}		
 	}
 
