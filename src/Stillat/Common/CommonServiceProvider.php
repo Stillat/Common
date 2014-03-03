@@ -14,6 +14,7 @@ use Stillat\Common\Database\Console\Tenant\UninstallCommand as TenantUninstallCo
 use Stillat\Common\Database\Console\Tenant\MigrationsCommand as TenantMigrationsCommand;
 use Stillat\Common\Database\Console\Tenant\MigrateCommand as TenantMigrateCommand;
 use Stillat\Common\Database\Console\Tenant\RollbackCommand as TenantRollbackCommand;
+use Stillat\Common\Database\Console\Tenant\ResetCommand as TenantResetCommand;
 
 class CommonServiceProvider extends ServiceProvider {
 
@@ -102,7 +103,7 @@ class CommonServiceProvider extends ServiceProvider {
 	 */
 	public function registerTenantCommands()
 	{
-		$commands = array('Install', 'Name', 'Uninstall', 'Migrations', 'Create', 'Drop', 'Migrate', 'Rollback');
+		$commands = array('Install', 'Name', 'Uninstall', 'Migrations', 'Create', 'Drop', 'Migrate', 'Rollback', 'Reset');
 
 		foreach($commands as $command)
 		{
@@ -117,7 +118,8 @@ class CommonServiceProvider extends ServiceProvider {
 			'command.tenant.create',
 			'command.tenant.drop',
 			'command.tenant.migrate',
-			'command.tenant.rollback'
+			'command.tenant.rollback',
+			'command.tenant.reset'
 		);
 	}
 
@@ -171,6 +173,14 @@ class CommonServiceProvider extends ServiceProvider {
 		});
 	}
 
+	public function registerTenantResetCommand()
+	{
+		$this->app->bindShared('command.tenant.reset', function($app)
+		{
+			return new TenantResetCommand($app['common.tenant.migrator']);
+		});
+	}
+
 	public function registerTenantMigrateCommand()
 	{
 		$this->app->bindShared('command.tenant.migrate', function($app)
@@ -200,7 +210,8 @@ class CommonServiceProvider extends ServiceProvider {
 	public function provides()
 	{
 		return array('common.tenant', 'common.tenant.migrator', 'common.tenant.schema', 'tenant.repository', 'command.tenant.install', 'command.tenant.name',
-					 'command.tenant.uninstall', 'command.tenant.migrations', 'command.tenant.create', 'command.tenant.drop', 'command.tenant.migrate', 'command.tenant.rollback');
+					 'command.tenant.uninstall', 'command.tenant.migrations', 'command.tenant.create', 'command.tenant.drop', 'command.tenant.migrate', 'command.tenant.rollback',
+					 'command.tenant.reset');
 	}
 
 }
