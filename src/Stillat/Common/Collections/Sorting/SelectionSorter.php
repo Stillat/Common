@@ -1,8 +1,8 @@
 <?php namespace Stillat\Common\Collections\Sorting;
 
-use Stillat\Common\Collections\ArraySortingInterface;
+use Stillat\Common\Collections\Sorting\BaseSorter;
 
-class SelectionSorter implements ArraySortingInterface {
+class SelectionSorter extends BaseSorter {
 
 	/**
 	 * Sorts the given array using a selection sort algorithm.
@@ -21,7 +21,7 @@ class SelectionSorter implements ArraySortingInterface {
 
 			for ($e = $i; $e < $count; $e++)
 			{
-				if ($mimimumValue == null || $collection[$e] < $mimimumValue)
+				if (($mimimumValue == null || $collection[$e] < $mimimumValue) == $this->forwardSort)
 				{
 					$mimimumKey   = $e;
 					$mimimumValue = $collection[$e];
@@ -32,6 +32,20 @@ class SelectionSorter implements ArraySortingInterface {
 			$collection[$i] = $mimimumValue;
 		}
 
+		return $collection;
+	}
+
+	/**
+	 * Inversely sorts the given array using a selection sort algorithm.
+	 *
+	 * @param  array $collection
+	 * @return array
+	 */
+	public function tros(array $collection)
+	{
+		$this->changeDirection(false);
+		$collection = $this->sort($collection);
+		$this->changeDirection(true);
 		return $collection;
 	}
 
