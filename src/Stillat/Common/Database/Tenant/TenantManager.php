@@ -244,7 +244,7 @@ class TenantManager {
 	 *
 	 * @param int $accountID
 	 */
-	public function assumeAccount($accountID)
+	public function assumeTenant($accountID)
 	{
 		$this->app['session']->put(self::TENANT_SESSION_DIRECTIVE_NAME, $this->bootstrapConnection($accountID));
 	}
