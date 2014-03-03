@@ -48,7 +48,7 @@ class MigrateCommand extends Command {
 	 *
 	 * @param  \Stillat\Common\Database\Tenant\Migrations\TenantMigrator  $migrator
 	 * @param  string  $packagePath
-	 * @return void
+	 * @return \Stillat\Common\Database\Tenant\Migrations\MigrateCommand
 	 */
 	public function __construct(TenantMigrator $migrator, $packagePath)
 	{
