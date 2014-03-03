@@ -1,8 +1,8 @@
 <?php namespace Stillat\Common\Collections\Sorting;
 
-use Stillat\Common\Collections\ArraySortingInterface;
+use Stillat\Common\Collections\Sorting\BaseSorter;
 
-class NativeQuickSorter implements ArraySortingInterface {
+class NativeQuickSorter extends BaseSorter {
 
 	/**
 	 * Sorts the given array using a quick sort algorithm.
@@ -17,4 +17,16 @@ class NativeQuickSorter implements ArraySortingInterface {
 		return $temporaryCollection;
 	}
 
+	/**
+	 * Inversely sorts the given array using a quick sort algorithm
+	 *
+	 * @param  array $collection
+	 * @return array
+	 */
+	public function tros(array $collection)
+	{
+		$temporaryCollection = $collection;
+		rsort($temporaryCollection);
+		return $temporaryCollection;
+	}
 }
