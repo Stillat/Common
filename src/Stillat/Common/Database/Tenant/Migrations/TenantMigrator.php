@@ -1,6 +1,5 @@
 <?php namespace Stillat\Common\Database\Tenant\Migrations;
 
-
 use Illuminate\Database\Migrations\Migrator;
 use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use Illuminate\Database\ConnectionResolverInterface as Resolver;
