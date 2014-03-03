@@ -1,8 +1,8 @@
 <?php namespace Stillat\Common\Collections\Sorting;
 
-use Stillat\Common\Collections\ArraySortingInterface;
+use Stillat\Common\Collections\Sorting\BaseSorter;
 
-class ShellSorter implements ArraySortingInterface {
+class ShellSorter extends BaseSorter {
 
 	/**
 	 * Sorts the given array using a shell sort algorithm.
@@ -22,7 +22,7 @@ class ShellSorter implements ArraySortingInterface {
 				$currentKey = $i;
 				$currentValue = $collection[$i];
 
-				while ($currentKey >= $gap and $collection[$currentKey - $gap] > $currentValue)
+				while (($currentKey >= $gap and $collection[$currentKey - $gap] > $currentValue) == $this->forwardSort)
 				{
 					$collection[$currentKey] = $collection[$currentKey - $gap];
 					$currentKey = $currentKey - $gap;
@@ -34,6 +34,20 @@ class ShellSorter implements ArraySortingInterface {
 			$gap = round($gap / 2.2);
 		}
 
+		return $collection;
+	}
+
+	/**
+	 * Inversely sorts the given array using a shell sort algorithm.
+	 *
+	 * @param  array $collection
+	 * @return array
+	 */
+	public function tros(array $collection)
+	{
+		$this->changeDirection(false);
+		$collection = $this->sort($collection);
+		$this->changeDirection(true);
 		return $collection;
 	}
 
