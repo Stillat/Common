@@ -19,7 +19,7 @@ class InsertionSorter extends BaseSorter {
 			$currentElement = $collection[$i];
 			$currentIndex   = $i;
 
-			while (($currentIndex > 0 and $collection[$currentIndex - 1] > $currentElement) == $this->forwardSort)
+			while ($currentIndex > 0 and $collection[$currentIndex - 1] > $currentElement)
 			{
 				$collection[$currentIndex] = $collection[$currentIndex - 1];
 				$currentIndex = $currentIndex - 1;
@@ -39,10 +39,7 @@ class InsertionSorter extends BaseSorter {
 	 */
 	public function tros(array $collection)
 	{
-		$this->changeDirection(false);
-		$collection = $this->sort($collection);
-		$this->changeDirection(true);
-		return $collection;
+		return array_reverse($this->sort($collection), true);
 	}
 
 }

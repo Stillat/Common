@@ -22,7 +22,7 @@ class ShellSorter extends BaseSorter {
 				$currentKey = $i;
 				$currentValue = $collection[$i];
 
-				while (($currentKey >= $gap and $collection[$currentKey - $gap] > $currentValue) == $this->forwardSort)
+				while ($currentKey >= $gap and $collection[$currentKey - $gap] > $currentValue)
 				{
 					$collection[$currentKey] = $collection[$currentKey - $gap];
 					$currentKey = $currentKey - $gap;
@@ -45,10 +45,7 @@ class ShellSorter extends BaseSorter {
 	 */
 	public function tros(array $collection)
 	{
-		$this->changeDirection(false);
-		$collection = $this->sort($collection);
-		$this->changeDirection(true);
-		return $collection;
+		return array_reverse($this->sort($collection), true);
 	}
 
 }

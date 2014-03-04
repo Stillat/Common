@@ -43,10 +43,7 @@ class SelectionSorter extends BaseSorter {
 	 */
 	public function tros(array $collection)
 	{
-		$this->changeDirection(false);
-		$collection = $this->sort($collection);
-		$this->changeDirection(true);
-		return $collection;
+		return array_reverse($this->sort($collection), true);
 	}
 
 }
