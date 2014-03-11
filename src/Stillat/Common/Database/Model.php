@@ -1,14 +1,9 @@
 <?php namespace Stillat\Common\Database;
 
 use Stillat\Common\Validation\ValidationObjectInterface;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use LaravelBook\Ardent\Ardent;
 
-abstract class Model extends Eloquent implements ValidationObjectInterface {
-
-	public function isValid()
-	{
-
-	}
+abstract class Model extends Ardent implements ValidationObjectInterface {
 
 	/**
 	 * Returns the next record.
