@@ -126,9 +126,15 @@ class DatabaseTenantRepository extends BaseRepository implements CreatableReposi
 		return $this->resolver->connection($this->connection);
 	}
 
-	public function getTenant($accountID)
+	/**
+	 * Returns a tenant for the given ID.
+	 *
+	 * @param int $tenantID
+	 * 
+	 */
+	public function getTenant($tenantID)
 	{
-
+		
 	}
 
 	public function grantUserOnTenant($user_id, $tenant_id)
