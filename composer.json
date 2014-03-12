@@ -1,6 +1,7 @@
 {
     "name": "stillat/common",
     "description": "",
+    "license": "MIT",
     "authors": [
         {
             "name": "Johnathon Koster",
