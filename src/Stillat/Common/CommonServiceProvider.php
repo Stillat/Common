@@ -1,5 +1,6 @@
 <?php namespace Stillat\Common;
 
+use Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Migrations\Migrator;
 use Stillat\Common\Database\Tenant\TenantManager;
@@ -79,7 +80,7 @@ class CommonServiceProvider extends ServiceProvider {
 	{
 		$this->app->bindShared('tenant.repository', function($app)
 		{
-			$tenantTables = $app['config']->get('tenant.tableNames', null);
+			$tenantTables = $app['config']->get('common::tenants.tableNames', null);
 
 			if ($tenantTables === null)
 			{
