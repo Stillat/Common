@@ -1,9 +1,8 @@
 <?php namespace Stillat\Common\Database;
 
-use Stillat\Common\Validation\ValidationObjectInterface;
 use LaravelBook\Ardent\Ardent;
 
-abstract class Model extends Ardent implements ValidationObjectInterface {
+abstract class Model extends Ardent {
 
 	/**
 	 * Returns the next record.
