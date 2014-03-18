@@ -1,4 +1,4 @@
-<?php namespace Stillat\Common\Database\Tenant\Repositores;
+<?php namespace Stillat\Common\Database\Tenant\Repositories;
 
 
 use Stillat\Common\Database\Tenant\TenantManager as Manager;
