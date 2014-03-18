@@ -178,6 +178,16 @@ abstract class ConnectionRepository implements RepositoryInterface {
 	}
 
 	/**
+	 * Returns the total number of records.
+	 *
+	 * @return int
+	 */
+	public function count()
+	{
+		return DB::connection($this->connectionName)->table($this->tableName)->count('*');
+	}
+
+	/**
 	 * Returns an array of primary keys.
 	 *
 	 * @return array
