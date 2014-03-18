@@ -44,6 +44,16 @@ abstract class ConnectionRepository implements RepositoryInterface {
 	}
 
 	/**
+	 * Sets the connection name for the repository.
+	 *
+	 * @param string $connectionName
+	 */
+	public function setConnection($connectionName)
+	{
+		$this->connectionName = $connectionName;
+	}
+
+	/**
 	 * Get the table name for the repository.
 	 *
 	 * @return string
