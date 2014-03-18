@@ -264,7 +264,7 @@ class TenantManager {
 		}
 		else
 		{
-			return $this->schemaPrefix.$accountName;
+			return $accountName;
 		}
 	}
 
