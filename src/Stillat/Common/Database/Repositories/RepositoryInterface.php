@@ -87,6 +87,13 @@ interface RepositoryInterface {
 	public function delete();
 
 	/**
+	 * Returns the total number of records.
+	 *
+	 * @return int
+	 */
+	public function count();
+
+	/**
 	 * Returns an array of primary keys.
 	 *
 	 * @return array
