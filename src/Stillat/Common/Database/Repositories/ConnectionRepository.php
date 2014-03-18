@@ -174,7 +174,7 @@ abstract class ConnectionRepository implements RepositoryInterface {
 
 	public function table()
 	{
-		return DB::table($this->tableName);
+		return DB::connection($this->connectionName)->table($this->tableName);
 	}
 
 	/**
