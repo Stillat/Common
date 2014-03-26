@@ -21,7 +21,7 @@
             "Stillat\\Common\\": "src/"
         },
         "files": [
-            "src/Stillat/Menu/Support/helpers.php"
+            "src/Stillat/Common/Support/helpers.php"
         ]
     },
     "minimum-stability": "stable"
