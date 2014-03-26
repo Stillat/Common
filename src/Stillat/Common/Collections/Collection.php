@@ -1,8 +1,8 @@
 <?php namespace Stillat\Common\Collections;
 
-use InvalidArgumentException;
-use Illuminate\Support\Collection as IlluminateCollection;
 use Stillat\Common\Collections\CollectionInterface;
+use Illuminate\Support\Collection as IlluminateCollection;
+use Stillat\Common\Exceptions\InvalidArgumentException as InvalidArgumentException;
 
 class Collection extends IlluminateCollection implements CollectionInterface {
 
