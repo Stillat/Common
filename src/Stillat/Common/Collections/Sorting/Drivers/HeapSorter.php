@@ -1,6 +1,6 @@
 <?php namespace Stillat\Common\Collections\Sorting\Drivers;
 
-use Stillat\Common\Collections\Sorting\BaseSorter;
+use Stillat\Common\Collections\Sorting\Drivers\BaseSorter;
 
 class HeapSorter extends BaseSorter {
 
