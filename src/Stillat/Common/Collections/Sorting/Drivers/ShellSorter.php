@@ -1,4 +1,4 @@
-<?php namespace Stillat\Common\Collections\Sorting;
+<?php namespace Stillat\Common\Collections\Sorting\Drivers;
 
 use Stillat\Common\Collections\Sorting\BaseSorter;
 
