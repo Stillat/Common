@@ -22,7 +22,10 @@
         ],
         "psr-0": {
             "Stillat\\Common\\": "src/"
-        }
+        },
+        "files": [
+            "src/Stillat/Menu/Support/helpers.php"
+        ]
     },
     "minimum-stability": "stable"
 }
