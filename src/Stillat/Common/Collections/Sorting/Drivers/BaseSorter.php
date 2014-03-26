@@ -1,6 +1,6 @@
 <?php namespace Stillat\Common\Collections\Sorting\Drivers;
 
-use Stillat\Common\Collections\ArraySortingInterface;
+use Stillat\Common\Collections\Sorting\Drivers\ArraySortingInterface;
 
 abstract class BaseSorter implements ArraySortingInterface {
 
