@@ -1,4 +1,4 @@
-<?php namespace Stillat\Common\Collections;
+<?php namespace Stillat\Common\Collections\Sorting;
 
 interface ArraySortingInterface {
 	
