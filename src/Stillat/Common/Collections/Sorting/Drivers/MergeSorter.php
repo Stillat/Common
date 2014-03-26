@@ -1,6 +1,6 @@
 <?php namespace Stillat\Common\Collections\Sorting\Drivers;
 
-use Stillat\Common\Collections\Sorting\Drivers\Drivers\BaseSorter;
+use Stillat\Common\Collections\Sorting\Drivers\BaseSorter;
 
 class MergeSorter extends BaseSorter {
 
