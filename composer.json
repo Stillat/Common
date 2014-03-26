@@ -17,9 +17,6 @@
         "phpunit/phpunit": "4.0.*"
     },
     "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
         "psr-0": {
             "Stillat\\Common\\": "src/"
         },
