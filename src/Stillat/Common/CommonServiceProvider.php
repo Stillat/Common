@@ -7,7 +7,7 @@ class CommonServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		$this->package('stillat/common', 'stillat-common');
+		$this->package('stillat/common', 'stillat');
 	}
 
 	/**
@@ -31,7 +31,7 @@ class CommonServiceProvider extends ServiceProvider {
 	{
 		$this->app->bind('stillat-common.sortmanager', function($app)
 		{
-			$sortingDriver = $app['config']->get('stillat-common::sorting.driver', 'native');
+			$sortingDriver = $app['config']->get('stillat::sorting.driver');
 
 			return new SortingManager($sortingDriver);
 		});
