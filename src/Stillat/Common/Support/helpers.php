@@ -1,5 +1,19 @@
 <?php
 
+if (!function_exists('d'))
+{
+	/**
+	 * Dumps the passed variables.
+	 * 
+	 * @param   dynamic mixed
+	 * @return  void
+	 */
+	function d()
+	{
+		array_map(function($x) { var_dump($x) }, function_get_args());
+	}
+}
+
 if (!function_exists('can_be_valid_string'))
 {
 
