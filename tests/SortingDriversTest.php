@@ -1,7 +1,5 @@
 <?php
 
-include_once 'SortingManagerTest.php';
-
 use \Stillat\Common\Collections\Sorting\SortingManager;
 
 class SortingDriversTest extends PHPUnit_Framework_TestCase {
