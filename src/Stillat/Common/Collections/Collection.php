@@ -1,19 +1,36 @@
 <?php namespace Stillat\Common\Collections;
 
 use Stillat\Common\Collections\CollectionInterface;
+use Stillat\Common\Support\Facades\Sort;
 use Illuminate\Support\Collection as IlluminateCollection;
 use Stillat\Common\Exceptions\InvalidArgumentException as InvalidArgumentException;
 
 class Collection extends IlluminateCollection implements CollectionInterface {
 
 	/**
-	 * Inserts a new item after an existing array element.
-	 * 
-	 * @param  string  $afterKey
-	 * @param  array   $newItem
-	 * @return void
+	 * {@inheritdoc}
 	 */
-	public function insertAfter($afterKey, array $newItem)
+	public function asc()
+	{
+		$this->items = Sort::asc($this->items);
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function desc()
+	{
+		$this->items = Sort::desc($this->items);
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function addAfter($afterKey, array $newItem)
 	{
 		if (!$this->has($afterKey))
 		{
@@ -40,13 +57,9 @@ class Collection extends IlluminateCollection implements CollectionInterface {
 	}
 
 	/**
-	 * Inserts an item before an existing array element.
-	 * 
-	 * @param  string  $beforeKey
-	 * @param  array   $newItem
-	 * @return void
+	 * {@inheritdoc}
 	 */
-	public function insertBefore($beforeKey, array $newItem)
+	public function addBefore($beforeKey, array $newItem)
 	{
 		if (!$this->has($beforeKey))
 		{
