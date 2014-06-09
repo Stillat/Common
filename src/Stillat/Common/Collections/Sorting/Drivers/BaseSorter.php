@@ -11,8 +11,8 @@ abstract class BaseSorter implements ArraySortingInterface {
 		$this->forwardSort = $sortDirection;
 	}
 
-	abstract function sort(array $collection);
+	abstract function asc(array $collection);
 
-	abstract function tros(array $collection);
+	abstract function desc(array $collection);
 	
 }

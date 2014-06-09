@@ -11,17 +11,8 @@ class SortingManager {
 	 * @var array
 	 */
 	protected $driverClassMap = array(
-		'bogo' => '\Stillat\Common\Collections\Sorting\Drivers\BogoSorter',
-		'bubble' => '\Stillat\Common\Collections\Sorting\Drivers\BubbleSorter',
-		'cocktail' => '\Stillat\Common\Collections\Sorting\Drivers\CocktailSorter',
-		'gnome' => '\Stillat\Common\Collections\Sorting\Drivers\GnomeSorter',
-		'heap' => '\Stillat\Common\Collections\Sorting\Drivers\HeapSorter',
-		'insertion' => '\Stillat\Common\Collections\Sorting\Drivers\InsertionSorter',
-		'merge' => '\Stillat\Common\Collections\Sorting\Drivers\MergeSorter',
 		'native' => '\Stillat\Common\Collections\Sorting\Drivers\NativeQuickSorter',
 		'quick' => '\Stillat\Common\Collections\Sorting\Drivers\QuickSorter',
-		'selection' => '\Stillat\Common\Collections\Sorting\Drivers\SelectionSorter',
-		'shell' => '\Stillat\Common\Collections\Sorting\Drivers\ShellSorter',
 	);
 
 	/**
@@ -33,8 +24,9 @@ class SortingManager {
 
 	/**
 	 * Returns an instance of SortingManager
-	 * 
-	 * @param string $sortingDriver
+	 *
+	 * @throws Stillat\Common\Exceptions\InvalidArgumentException If an invalid $sortingDriver is specified
+	 * @param  string $sortingDriver
 	 */
 	public function __construct($sortingDriver)
 	{
@@ -46,6 +38,16 @@ class SortingManager {
 	}
 
 	/**
+	 * Returns the ArraySortingInterface implementation
+	 * 
+	 * @return \Stillat\Common\Collections\Sorting\ArraySortingInterface
+	 */
+	public function getDriver()
+	{
+		return $this->driver;
+	}
+
+	/**
 	 * Sorts an array in ascending order.
 	 * 
 	 * @param  array  $collection
@@ -53,7 +55,7 @@ class SortingManager {
 	 */
 	public function asc(array $collection)
 	{
-		return $this->driver->sort($collection);
+		return $this->driver->asc($collection);
 	}
 
 	/**
@@ -64,7 +66,7 @@ class SortingManager {
 	 */
 	public function desc(array $collection)
 	{
-		return $this->driver->tros($collection);
+		return $this->driver->desc($collection);
 	}
 	
 }

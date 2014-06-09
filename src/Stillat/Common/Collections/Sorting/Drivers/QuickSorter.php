@@ -10,7 +10,7 @@ class QuickSorter extends BaseSorter  {
 	 * @param  array $collection
 	 * @return array
 	 */
-	public function sort(array $collection)
+	public function asc(array $collection)
 	{
 		$count = count($collection);
 
@@ -39,9 +39,9 @@ class QuickSorter extends BaseSorter  {
 			}
 		}
 
-		return array_merge($this->sort($leftCollection),
+		return array_merge($this->asc($leftCollection),
 						   array($sortPivot => $pivot),
-						   $this->sort($rightCollection));
+						   $this->asc($rightCollection));
 	}
 
 	/**
@@ -50,10 +50,10 @@ class QuickSorter extends BaseSorter  {
 	 * @param  array $collection
 	 * @return array
 	 */
-	public function tros(array $collection)
+	public function desc(array $collection)
 	{
 		$this->changeDirection(false);
-		$collection = $this->sort($collection);
+		$collection = $this->asc($collection);
 		$this->changeDirection(true);
 		return $collection;
 	}

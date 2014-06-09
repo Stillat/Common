@@ -10,10 +10,10 @@ class NativeQuickSorter extends BaseSorter {
 	 * @param  array $collection
 	 * @return array
 	 */
-	public function sort(array $collection)
+	public function asc(array $collection)
 	{
 		$temporaryCollection = $collection;
-		sort($temporaryCollection);
+		asort($temporaryCollection);
 		return $temporaryCollection;
 	}
 
@@ -23,10 +23,10 @@ class NativeQuickSorter extends BaseSorter {
 	 * @param  array $collection
 	 * @return array
 	 */
-	public function tros(array $collection)
+	public function desc(array $collection)
 	{
 		$temporaryCollection = $collection;
-		rsort($temporaryCollection);
+		arsort($temporaryCollection);
 		return $temporaryCollection;
 	}
 }
