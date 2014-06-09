@@ -10,7 +10,7 @@ if (!function_exists('d'))
 	 */
 	function d()
 	{
-		array_map(function($x) { var_dump($x) }, function_get_args());
+		array_map(function($x) { var_dump($x); }, func_get_args ());
 	}
 }
 
