@@ -25,7 +25,7 @@ class SortingManagerTest extends PHPUnit_Framework_TestCase {
      */
 	public function testSettingInvalidDriverThrowsException()
 	{
-		$manager = new SortingManager('Any invalid name will work here');
+		$manager = new SortingManager('invalid');
 	}
 
 }
