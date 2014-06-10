@@ -13,28 +13,71 @@ class SortingManager {
 	protected $driverClassMap = array(
 		'native' => '\Stillat\Common\Collections\Sorting\Drivers\NativeQuickSorter',
 		'quick' => '\Stillat\Common\Collections\Sorting\Drivers\QuickSorter',
-	);
+		);
 
 	/**
 	 * The ArraySortingInterface implementation.
 	 *
 	 * @var \Stillat\Common\Collections\Sorting\ArraySortingInterface
 	 */
-	protected $driver;
+	protected $driver = null;
+
+	/**
+	 * Driver to restore when removeSortMap() is called
+	 * 
+	 * @var \Stillat\Common\Collections\Sorting\ArraySortingInterface
+	 */
+	protected $restoredDriver = null;
+
+	/**
+	 * The collection sort map instance
+	 * 
+	 * @var \Stillat\Common\Collections\CollectionSortMap
+	 */
+	protected $collectionSortMap = null;
 
 	/**
 	 * Returns an instance of SortingManager
 	 *
 	 * @throws Stillat\Common\Exceptions\InvalidArgumentException If an invalid $sortingDriver is specified
 	 * @param  string $sortingDriver
+	 * @param  array  $additionalDrivers An array of additional sorting drivers.
 	 */
-	public function __construct($sortingDriver)
+	public function __construct($sortingDriver, array $additionalDrivers = array())
 	{
-		if (!array_key_exists($sortingDriver, $this->driverClassMap))
+		if (count($additionalDrivers) > 0)
 		{
-			throw new InvalidArgumentException("Sorting driver '{$sortingDriver}' is not supported.");
+			array_merge($this->driverClassMap, $additionalDrivers);
 		}
-		$this->driver = new $this->driverClassMap[$sortingDriver];
+
+		$this->makeDriver($sortingDriver);
+	}
+
+	/**
+	 * Attempts to make an instance of a sorting driver
+	 *
+	 * @throws Stillat\Common\Exceptions\InvalidArgumentException If an invalid $sortingDriver is specified
+	 * @param  string $driverName The driver name
+	 * @return \Stillat\Common\Collections\Sorting\ArraySortingInterface
+	 */
+	private function makeDriver($driverName)
+	{
+		if (is_object($driverName) && $driverName instanceof ArraySortingInterface)
+		{
+			$this->driver = $driverName;
+			return;
+		}
+		else
+		{
+			if (is_string($driverName) && (isset($this->driverClassMap[$driverName]) === false))
+			{
+				throw new InvalidArgumentException("Sorting driver '{$driverName}' is not supported.");
+			}
+			else
+			{
+				$this->driver = new $this->driverClassMap[$driverName];
+			}
+		}
 	}
 
 	/**
@@ -48,6 +91,72 @@ class SortingManager {
 	}
 
 	/**
+	 * Sets the collection sort map to use
+	 *
+	 * Settings this property will instruct the sort manager to use
+	 * the sort map on all subsequent sorts.
+	 * 
+	 * @param Stillat\Common\Collections\CollectionSortMap $map
+	 */
+	public function setSortMap(CollectionSortMap $map)
+	{
+		$this->collectionSortMap = $map;
+	}
+
+	/**
+	 * Gets the collection sort map in use
+	 * 
+	 * @return Stillat\Common\Collections\CollectionSortMap
+	 * @return NULL If no sort map set
+	 */
+	public function getSortMap()
+	{
+		return $this->collectionSortMap;
+	}
+
+	/**
+	 * Removes the collection sort map set, if any
+	 *
+	 * Calling this method will instruct the sort manager not to use
+	 * a sort map on all subsequent sorts.
+	 * 
+	 * @return void
+	 */
+	public function removeSortMap()
+	{
+		unset($this->collectionSortMap);
+		$this->collectionSortMap = null;
+
+		unset($this->driver);
+		$this->driver = $this->restoredDriver;
+
+		unset($this->restoredDriver);
+		$this->restoredDriver = null;
+	}
+
+	/**
+	 * Creates a driver based on the sort map, if it is available
+	 *
+	 * If no sort map is set, it just returns the default driver
+	 *
+	 * @param  int The size of the collection
+	 * @return void
+	 */
+	private function getDriverConsideringSortMap($collectionSize)
+	{
+		if ($this->collectionSortMap !== null)
+		{
+
+			if ($this->restoredDriver == null)
+			{
+				$this->restoredDriver = $this->driver;
+			}
+
+			$this->makeDriver($this->collectionSortMap->determineDriver($collectionSize));
+		}
+	}
+
+	/**
 	 * Sorts an array in ascending order.
 	 * 
 	 * @param  array  $collection
@@ -55,6 +164,8 @@ class SortingManager {
 	 */
 	public function asc(array $collection)
 	{
+		$this->getDriverConsideringSortMap(count($collection));
+
 		return $this->driver->asc($collection);
 	}
 
@@ -66,6 +177,8 @@ class SortingManager {
 	 */
 	public function desc(array $collection)
 	{
+		$this->getDriverConsideringSortMap(count($collection));
+
 		return $this->driver->desc($collection);
 	}
 	
