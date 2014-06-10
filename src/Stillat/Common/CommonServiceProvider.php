@@ -7,7 +7,7 @@ class CommonServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		$this->package('stillat/common', 'stillat');
+		$this->package('stillat/common', 'stillat-common');
 	}
 
 	/**
@@ -27,16 +27,19 @@ class CommonServiceProvider extends ServiceProvider {
 		$this->registerSortManager();
 	}
 
-	public function registerSortManager()
+	private function registerSortManager()
 	{
 		$this->app->bind('stillat-common.sortmanager', function($app)
 		{
-			$sortingDriver = $app['config']->get('stillat::sorting.driver');
 
-			return new SortingManager($sortingDriver);
+			$sortingDriver = $app['config']->get('stillat-common::sorting.driver');
+
+			$sortingDrivers = $app['config']->get('stillat-common::sorting.sortingDrivers');
+
+			return new SortingManager($sortingDriver, $sortingDrivers);
 		});
 	}
-
+	
 	/**
 	 * Get the services provided by the provider.
 	 *
