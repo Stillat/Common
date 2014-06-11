@@ -1,6 +1,7 @@
 <?php namespace Stillat\Common;
 
 use Illuminate\Support\ServiceProvider;
+use Stillat\Common\Math\MathManager;
 use Stillat\Common\Collections\Sorting\SortingManager;
 
 class CommonServiceProvider extends ServiceProvider {
@@ -25,6 +26,7 @@ class CommonServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->registerSortManager();
+		$this->registerMathManager();
 	}
 
 	private function registerSortManager()
@@ -39,6 +41,20 @@ class CommonServiceProvider extends ServiceProvider {
 			return new SortingManager($sortingDriver, $sortingDrivers);
 		});
 	}
+
+	private function registerMathManager()
+	{
+		$this->app->bind('stillat-common.mathmanager', function($app)
+		{
+
+			$expressionEngine = $app['config']->get('stillat-common::math.driver');
+
+			$precision        = $app['config']->get('stillat-common::math.precision');
+
+			return with(new MathManager($expressionEngine))->setPrecision($precision);
+
+		});
+	}
 	
 	/**
 	 * Get the services provided by the provider.
@@ -47,7 +63,7 @@ class CommonServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('stillat-common.sortmanager');
+		return array('stillat-common.sortmanager', 'stillat-common.mathmanager');
 	}
 
 }
