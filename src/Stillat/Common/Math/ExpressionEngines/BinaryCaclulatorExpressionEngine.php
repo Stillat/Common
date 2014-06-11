@@ -39,7 +39,8 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	public function abs($number)
 	{
 		return $this->withPrecision(abs($number));
-
+	}
+	
 	/**
 	 * {@inheritdoc}
 	 */
