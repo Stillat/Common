@@ -18,7 +18,7 @@ trait ValidatableTrait {
 	 *
 	 * @var \Illuminate\Support\MessageBag
 	 */
-	protected $validationErrors = null;
+	protected $validationErrorMessages = null;
 
 	/**
 	 * The Presence Verifier implementation.
@@ -92,7 +92,7 @@ trait ValidatableTrait {
 
 		if (!$passed)
 		{
-			$this->validationErrors = $validator->errors();
+			$this->validationErrorMessages = $validator->errors();
 		}
 
 		return $passed;
@@ -105,7 +105,7 @@ trait ValidatableTrait {
 	 */
 	public function errors()
 	{
-		return $this->validationErrors;
+		return $this->validationErrorMessages;
 	}
 
 	/**
