@@ -14,6 +14,33 @@ if (!function_exists('d'))
 	}
 }
 
+if (!function_exists('if_null_then'))
+{
+	/**
+	 * Returns a value based on whether another value is null.
+	 *
+	 * Concerning arrays, if you need to check that a value has
+	 * been set (which is not necessarily the same is being
+	 * equal to null), consider using the `isset_or` function
+	 * instead.
+	 * 
+	 * @param  mixed          $check The value to check for null.
+	 * @param  \Closure|mixed $then  The value to return if $check is null.
+	 * @return mixed
+	 */
+	function if_null_then($check, $then)
+	{
+		if ($check === null)
+		{
+			if (is_object($then) and $then instanceof Closure) { return $then(); }
+
+			return $then;
+		}
+
+		return $check;
+	}
+}
+
 if (!function_exists('can_be_valid_string'))
 {
 

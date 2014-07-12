@@ -37,6 +37,27 @@ class SupportHelpersTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(true, $result);
 	}
 
+	public function testIsNullThenLiteral()
+	{
+		$thisIsNull = null;
+
+		$this->assertEquals('test', if_null_then($thisIsNull, 'test'));
+	}
+
+	public function testIsNullThenObject()
+	{
+		$thisIsNotNull = new stdClass;
+
+		$this->assertEquals($thisIsNotNull, if_null_then($thisIsNotNull, 'test'));
+	}
+
+	public function testIsNullThenClosure()
+	{
+		$this->assertEquals('test', if_null_then(null, function(){
+			return 'test';
+		}));
+	}
+
 }
 
 class ObjectWithToStringTestClass {
