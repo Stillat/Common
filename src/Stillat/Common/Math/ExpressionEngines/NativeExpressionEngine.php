@@ -62,15 +62,6 @@ class NativeExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function atan($number)
 	{
-		if (func_num_args() == 2)
-		{
-			// If the user has passed in two parameters, let's
-			// assume that they want to calculate Atan2.
-			return $this->atan2(func_get_arg(1), func_get_arg(2));
-		}
-
-		// If the number of arguments is not two, just calculate
-		// the atan as normal.
 		return $this->withPrecision(atan($number));
 	}
 
