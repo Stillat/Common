@@ -19,6 +19,7 @@ class MathManager {
 	 */
 	protected $driverClassMap = array(
 		'bc' => '\Stillat\Common\Math\ExpressionEngines\BinaryCaclulatorExpressionEngine',
+		'native' => '\Stillat\Common\Math\ExpressionEngines\NativeExpressionEngine',
 		);
 
 	/**
