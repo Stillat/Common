@@ -102,7 +102,7 @@ class NativeExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function exp($number)
 	{
-		return pow($number, M_E, $this->precision);
+		return $this->withPrecision(exp($number));
 	}
 
 	/**
@@ -150,7 +150,7 @@ class NativeExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function pow($base, $exponent)
 	{
-		return pow($base, $exponent, $this->precision);
+		return $this->withPrecision(pow($base, $exponent));
 	}
 
 	/**
@@ -203,7 +203,7 @@ class NativeExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function sqrt($number)
 	{
-		return sqrt($number, $this->precision);
+		return $this->withPrecision(sqrt($number));
 	}
 
 	/**
@@ -243,7 +243,7 @@ class NativeExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function subtract($numberOne, $numberTwo)
 	{
-		return $this->withPrecision($numberOne + $numberTwo);
+		return $this->withPrecision($numberOne - $numberTwo);
 	}
 
 	/**
@@ -259,7 +259,7 @@ class NativeExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function divide($numberOne, $numberTwo)
 	{
-		if ($numberTwo === 0)
+		if ($numberTwo == 0)
 		{
 			throw new DivideByZeroException;
 		}

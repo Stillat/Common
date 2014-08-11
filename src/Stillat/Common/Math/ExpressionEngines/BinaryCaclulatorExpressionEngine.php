@@ -13,11 +13,19 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	protected $precision = 0;
 
 	/**
+	 * This value will be used to "correct" BC rounding errors.
+	 * 
+	 * @var integer
+	 */
+	protected $correctingPrecision = 0;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function setPrecision($precision)
 	{
 		$this->precision = $precision;
+		$this->correctingPrecision = $precision + 3;
 	}
 
 	/**
@@ -31,6 +39,11 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	private function withPrecision($number)
 	{
 		return round($number, $this->precision);
+	}
+
+	private function bcCorrect($number)
+	{
+		return $this->bcRound($number, $this->precision);
 	}
 
 	/**
@@ -102,7 +115,7 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function exp($number)
 	{
-		return bcpow($number, M_E, $this->precision);
+		return $this->bcCorrect(bcpow(M_E, $number, $this->correctingPrecision));
 	}
 
 	/**
@@ -150,7 +163,7 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function pow($base, $exponent)
 	{
-		return bcpow($base, $exponent, $this->precision);
+		return $this->bcCorrect(bcpow($base, $exponent, $this->correctingPrecision));
 	}
 
 	/**
@@ -158,7 +171,22 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function round($number, $precision = 0, $mode = PHP_ROUND_HALF_UP)
 	{
-		return round($number, $precision, $mode);
+		return $this->bcRound($number, $precision);
+	}
+
+	private function bcRound($number, $precision)
+	{
+		if (strpos($number, '.') !== false)
+		{
+			if ($number[0] != '-')
+			{
+				return bcadd($number, '0.' . str_repeat('0', $precision) . '5', $precision);
+			}
+
+			return bcsub($number, '0.' . str_repeat('0', $precision) . '5', $precision);
+		}
+
+		return $number;
 	}
 
 	/**
@@ -203,7 +231,7 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function sqrt($number)
 	{
-		return bcsqrt($number, $this->precision);
+		return $this->bcCorrect(bcsqrt($number, $this->correctingPrecision));
 	}
 
 	/**
@@ -235,7 +263,7 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function add($numberOne, $numberTwo)
 	{
-		return bcadd($numberOne, $numberTwo, $this->precision);
+		return $this->bcCorrect(bcadd($numberOne, $numberTwo, $this->correctingPrecision));
 	}
 
 	/**
@@ -243,7 +271,7 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function subtract($numberOne, $numberTwo)
 	{
-		return bcsub($numberOne, $numberTwo, $this->precision);
+		return $this->bcCorrect(bcsub($numberOne, $numberTwo, $this->correctingPrecision));
 	}
 
 	/**
@@ -251,7 +279,7 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function multiply($numberOne, $numberTwo)
 	{
-		return bcmul($numberOne, $numberTwo, $this->precision);
+		return $this->bcCorrect(bcmul($numberOne, $numberTwo, $this->correctingPrecision));
 	}
 
 	/**
@@ -259,12 +287,12 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function divide($numberOne, $numberTwo)
 	{
-		if ($numberTwo === 0)
+		if ($numberTwo == 0)
 		{
 			throw new DivideByZeroException;
 		}
 
-		return bcdiv($numberOne, $numberTwo, $this->precision);
+		return $this->bcCorrect(bcdiv($numberOne, $numberTwo, $this->correctingPrecision));
 	}
 
 	/**
@@ -272,7 +300,7 @@ class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
 	 */
 	public function mod($numberOne, $numberTwo)
 	{
-		return bcmod($numberOne, $numberTwo);
+		return $this->bcCorrect(bcmod($numberOne, $numberTwo));
 	}
 
 	/**
