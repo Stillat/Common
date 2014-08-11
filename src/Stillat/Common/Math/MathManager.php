@@ -190,7 +190,7 @@ class MathManager {
 	 */
 	public function log($number, $base = M_E)
 	{
-		return $this->expressionEngine->log($number, $base = M_E);
+		return $this->expressionEngine->log($number, $base);
 	}
 
 	/**
@@ -249,7 +249,7 @@ class MathManager {
 	 */
 	public function round($number, $precision = 0, $mode = PHP_ROUND_HALF_UP)
 	{
-		return $this->expressionEngine->round($number, $precision = 0, $mode = PHP_ROUND_HALF_UP);
+		return $this->expressionEngine->round($number, $precision, $mode = PHP_ROUND_HALF_UP);
 	}
 
 	/**
