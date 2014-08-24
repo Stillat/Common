@@ -23,4 +23,19 @@ interface StackInterface {
      */
     public function top();
 
+    /**
+     * The number of items remaining in the stack.
+     *
+     * @return int
+     */
+    public function count();
+
+    /**
+     * Picks an item at the given depth from the top of the stack.
+     *
+     * @param int $depth
+     * @return mixed
+     */
+    public function pick($depth = 1);
+
 }

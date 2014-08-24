@@ -43,4 +43,27 @@ class CollectionStack implements StackInterface {
         return $this->collection->first();
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function count()
+    {
+        return $this->collection->count();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function pick($depth = 1)
+    {
+        $depthPosition = $this->count() - $depth;
+
+        if (isset($this->collection[$depthPosition]))
+        {
+            return $this->collection[$depthPosition];
+        }
+
+        return;
+    }
+
 }
