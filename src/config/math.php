@@ -16,6 +16,24 @@ return array(
 
 	'driver' => 'bc',
 
+    /*
+	|--------------------------------------------------------------------------
+	| Additional Expression Engine Drivers
+	|--------------------------------------------------------------------------
+	|
+	| This option allows you to register additional expression engines with the
+	| math manager. Using this is not required, but is the only way to link
+	| drivers by a name.
+	|
+	| For example:
+	| 'bc' => '\Stillat\Common\Math\ExpressionEngines\BinaryCalculatorExpressionEngine',
+	|
+	*/
+
+    'expressionEngines' => [
+
+    ],
+
 	/*
 	|--------------------------------------------------------------------------
 	| Calculation Precision
