@@ -33,8 +33,8 @@ return array(
 	|
 	*/
 
-	'sortingDrivers' => array(
-		'test' => '\Stillat\Common\Collections\Sorting\Drivers\NativeQuickSorter',
-		),
+	'sortingDrivers' => [
+
+    ],
 
 );
