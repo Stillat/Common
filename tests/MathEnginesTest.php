@@ -132,10 +132,10 @@ class MathEnginesTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('627628341587', $this->manager->add('392392359235', '235235982352'));
 		$this->assertEquals('-235235982352', $this->manager->subtract('392392359235', '627628341587'));
 
-		$hundrend = $this->manager->multiply('10', '10');
-		$thousand = $this->manager->multiply($hundrend, '10');
+		$hundred = $this->manager->multiply('10', '10');
+		$thousand = $this->manager->multiply($hundred, '10');
 
-		$this->assertEquals('100', $hundrend);
+		$this->assertEquals('100', $hundred);
 		$this->assertEquals('1000', $thousand);
 
 		$this->assertEquals('100', $this->manager->divide($thousand, '10'));
