@@ -51,7 +51,10 @@ class CommonServiceProvider extends ServiceProvider {
 
 			$precision        = $app['config']->get('stillat-common::math.precision');
 
-			return with(new MathManager($expressionEngine))->setPrecision($precision);
+            $mathManager = new MathManager($expressionEngine, $app['config']->get('stillat-common::math.expressionEngines'));
+            $mathManager->setPrecision($precision);
+
+			return $mathManager;
 
 		});
 	}
