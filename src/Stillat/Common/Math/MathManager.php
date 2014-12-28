@@ -18,35 +18,52 @@ class MathManager {
 	 * @var array
 	 */
 	protected $driverClassMap = array(
-		'bc' => '\Stillat\Common\Math\ExpressionEngines\BinaryCaclulatorExpressionEngine',
+		'bc' => '\Stillat\Common\Math\ExpressionEngines\BinaryCalculatorExpressionEngine',
 		'native' => '\Stillat\Common\Math\ExpressionEngines\NativeExpressionEngine',
 		);
 
-	/**
-	 * Creates a new instance of MathManager
-	 * 
-	 * @param   string|ExpressionEngineInterface $driver The engine name/implementation
-	 * @return  Stillat\Common\Math\MathManager
-	 */
-	public function __construct($driver)
+    /**
+     * Returns an instance of MathManager
+     *
+     * @param       $mathDriver
+     * @param array $additionalDrivers An array of additional sorting drivers.
+     */
+	public function __construct($mathDriver, array $additionalDrivers = array())
 	{
-		if (is_object($driver) && $driver instanceof ExpressionEngineInterface)
-		{
-			$this->expressionEngine = $driver;
-			return;
-		}
-		else
-		{
-			if (is_string($driver) && (isset($this->driverClassMap[$driver]) === false))
-			{
-				throw new InvalidArgumentException("Math expression engine '{$driver}' is not supported.");
-			}
-			else
-			{
-				$this->expressionEngine = new $this->driverClassMap[$driver];
-			}
-		}
+        if (count($additionalDrivers) > 0)
+        {
+            array_merge($this->driverClassMap, $additionalDrivers);
+        }
+
+        $this->makeDriver($mathDriver);
 	}
+
+    /**
+     * Attempts to make an instance of an expression engine.
+     *
+     * @param  string $driverName The driver name.
+     * @return Stillat\Common\Math\ExpressionEngines\ExpressionEngineInterface
+     * @throws InvalidArgumentException
+     */
+    private function makeDriver($driverName)
+    {
+        if (is_object($driverName) && $driverName instanceof ExpressionEngineInterface)
+        {
+            $this->expressionEngine = $driverName;
+            return;
+        }
+        else
+        {
+            if (is_string($driverName) and array_key_exists($driverName, $this->driverClassMap) == false)
+            {
+                throw new InvalidArgumentException("Math expression engine '{$driverName}' is not supported.");
+            }
+            else
+            {
+                $this->expressionEngine = new $this->driverClassMap[$driverName];
+            }
+        }
+    }
 
 	/**
 	 * Returns the ExpressionEngineInterface implementation
@@ -62,6 +79,7 @@ class MathManager {
 	 * Sets the precision to use in calculations
 	 * 
 	 * @param int $precision The precision to use
+     * @return MathManager
 	 */
 	public function setPrecision($precision)
 	{
@@ -107,7 +125,6 @@ class MathManager {
 	 * Returns the arc tangent of a number.
 	 *
 	 * @param  float $number
-	 * @param  float $y      optional
 	 * @return float The arc tangent of a number in radians.
 	 */
 	public function atan($number)

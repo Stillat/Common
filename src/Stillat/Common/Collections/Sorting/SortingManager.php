@@ -56,9 +56,9 @@ class SortingManager {
 	/**
 	 * Attempts to make an instance of a sorting driver
 	 *
-	 * @throws Stillat\Common\Exceptions\InvalidArgumentException If an invalid $sortingDriver is specified
 	 * @param  string $driverName The driver name
 	 * @return \Stillat\Common\Collections\Sorting\ArraySortingInterface
+     * @throws InvalidArgumentException
 	 */
 	private function makeDriver($driverName)
 	{
@@ -69,7 +69,7 @@ class SortingManager {
 		}
 		else
 		{
-			if (is_string($driverName) && (isset($this->driverClassMap[$driverName]) === false))
+			if (is_string($driverName) && array_key_exists($driverName, $this->driverClassMap) == false)
 			{
 				throw new InvalidArgumentException("Sorting driver '{$driverName}' is not supported.");
 			}
@@ -96,7 +96,7 @@ class SortingManager {
 	 * Settings this property will instruct the sort manager to use
 	 * the sort map on all subsequent sorts.
 	 * 
-	 * @param Stillat\Common\Collections\CollectionSortMap $map
+	 * @param CollectionSortMap $map
 	 */
 	public function setSortMap(CollectionSortMap $map)
 	{
