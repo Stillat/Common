@@ -63,7 +63,7 @@ class CollectionStack implements StackInterface {
             return $this->collection[$depthPosition];
         }
 
-        return;
+        return null;
     }
 
 }
