@@ -3,7 +3,7 @@
 use Stillat\Common\Exceptions\DivideByZeroException;
 use Stillat\Common\Math\ExpressionEngines\ExpressionEngineInterface;
 
-class BinaryCaclulatorExpressionEngine implements ExpressionEngineInterface {
+class BinaryCalculatorExpressionEngine implements ExpressionEngineInterface {
 
 	/**
 	 * The precision to use in calculations
