@@ -4,69 +4,68 @@ use Illuminate\Support\ServiceProvider;
 use Stillat\Common\Math\MathManager;
 use Stillat\Common\Collections\Sorting\SortingManager;
 
-class CommonServiceProvider extends ServiceProvider {
+class CommonServiceProvider extends ServiceProvider
+{
 
-	public function boot()
-	{
-		$this->package('stillat/common', 'stillat-common');
-	}
+    public function boot()
+    {
+        $this->package('stillat/common', 'stillat-common');
+    }
 
-	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = false;
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		$this->registerSortManager();
-		$this->registerMathManager();
-	}
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerSortManager();
+        $this->registerMathManager();
+    }
 
-	private function registerSortManager()
-	{
-		$this->app->bind('stillat-common.sortmanager', function($app)
-		{
+    private function registerSortManager()
+    {
+        $this->app->bind('stillat-common.sortmanager', function ($app) {
 
-			$sortingDriver = $app['config']->get('stillat-common::sorting.driver');
+            $sortingDriver = $app['config']->get('stillat-common::sorting.driver');
 
-			$sortingDrivers = $app['config']->get('stillat-common::sorting.sortingDrivers');
+            $sortingDrivers = $app['config']->get('stillat-common::sorting.sortingDrivers');
 
-			return new SortingManager($sortingDriver, $sortingDrivers);
-		});
-	}
+            return new SortingManager($sortingDriver, $sortingDrivers);
+        });
+    }
 
-	private function registerMathManager()
-	{
-		$this->app->bind('stillat-common.mathmanager', function($app)
-		{
+    private function registerMathManager()
+    {
+        $this->app->bind('stillat-common.mathmanager', function ($app) {
 
-			$expressionEngine = $app['config']->get('stillat-common::math.driver');
+            $expressionEngine = $app['config']->get('stillat-common::math.driver');
 
-			$precision        = $app['config']->get('stillat-common::math.precision');
+            $precision = $app['config']->get('stillat-common::math.precision');
 
             $mathManager = new MathManager($expressionEngine, $app['config']->get('stillat-common::math.expressionEngines'));
             $mathManager->setPrecision($precision);
 
-			return $mathManager;
+            return $mathManager;
 
-		});
-	}
-	
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return array('stillat-common.sortmanager', 'stillat-common.mathmanager');
-	}
+        });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return array('stillat-common.sortmanager', 'stillat-common.mathmanager');
+    }
 
 }

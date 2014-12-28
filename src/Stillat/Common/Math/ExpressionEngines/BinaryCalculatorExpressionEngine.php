@@ -1,7 +1,7 @@
 <?php namespace Stillat\Common\Math\ExpressionEngines;
 
 use Stillat\Common\Exceptions\DivideByZeroException;
-use Stillat\Common\Math\ExpressionEngines\ExpressionEngineInterface;
+
 
 class BinaryCalculatorExpressionEngine implements ExpressionEngineInterface {
 

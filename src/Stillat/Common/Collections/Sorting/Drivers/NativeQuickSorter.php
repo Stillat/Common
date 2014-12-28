@@ -1,7 +1,5 @@
 <?php namespace Stillat\Common\Collections\Sorting\Drivers;
 
-use Stillat\Common\Collections\Sorting\Drivers\BaseSorter;
-
 class NativeQuickSorter extends BaseSorter {
 
 	/**

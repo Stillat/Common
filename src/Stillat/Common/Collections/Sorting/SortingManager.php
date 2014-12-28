@@ -1,7 +1,7 @@
 <?php namespace Stillat\Common\Collections\Sorting;
 
 use Stillat\Common\Exceptions\InvalidArgumentException;
-use Stillat\Common\Collections\Sorting\ArraySortingInterface;
+
 
 class SortingManager {
 
@@ -39,7 +39,7 @@ class SortingManager {
 	/**
 	 * Returns an instance of SortingManager
 	 *
-	 * @throws Stillat\Common\Exceptions\InvalidArgumentException If an invalid $sortingDriver is specified
+	 * @throws \Stillat\Common\Exceptions\InvalidArgumentException If an invalid $sortingDriver is specified
 	 * @param  string $sortingDriver
 	 * @param  array  $additionalDrivers An array of additional sorting drivers.
 	 */
@@ -106,7 +106,7 @@ class SortingManager {
 	/**
 	 * Gets the collection sort map in use
 	 * 
-	 * @return Stillat\Common\Collections\CollectionSortMap
+	 * @return \Stillat\Common\Collections\CollectionSortMap
 	 * @return NULL If no sort map set
 	 */
 	public function getSortMap()

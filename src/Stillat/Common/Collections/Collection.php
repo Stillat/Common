@@ -1,7 +1,7 @@
 <?php namespace Stillat\Common\Collections;
 
 use Stillat\Common\Support\Facades\Sort;
-use Stillat\Common\Collections\CollectionInterface;
+
 use Illuminate\Support\Collection as IlluminateCollection;
 use Stillat\Common\Exceptions\InvalidArgumentException as InvalidArgumentException;
 

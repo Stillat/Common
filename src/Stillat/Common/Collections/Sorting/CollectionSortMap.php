@@ -9,7 +9,7 @@ class CollectionSortMap {
 	/**
 	 * Adds a new sorting algorithm with the specified threshold
 	 *
-	 * @throws Stillat\Common\Exceptions\InvalidArgumentException if the $threshold is not an integer, or is not greater than 0
+	 * @throws InvalidArgumentException if the $threshold is not an integer, or is not greater than 0
 	 * @param  int    $threshold The collection count threshold
 	 * @param  string $driver    The sorting driver to use at the threshold
 	 */

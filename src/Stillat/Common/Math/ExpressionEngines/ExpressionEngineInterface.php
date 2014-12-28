@@ -44,7 +44,6 @@ interface ExpressionEngineInterface {
 	 * Returns the arc tangent of a number.
 	 *
 	 * @param  float $number
-	 * @param  float $y      optional
 	 * @return float The arc tangent of a number in radians.
 	 */
 	public function atan($number);
@@ -61,6 +60,7 @@ interface ExpressionEngineInterface {
 	/**
 	 * Returns the next highest integer of a number.
 	 *
+     * @param  number $number
 	 * @return int
 	 */
 	public function ceiling($number);

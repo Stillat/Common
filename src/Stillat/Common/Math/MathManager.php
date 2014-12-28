@@ -42,7 +42,7 @@ class MathManager {
      * Attempts to make an instance of an expression engine.
      *
      * @param  string $driverName The driver name.
-     * @return Stillat\Common\Math\ExpressionEngines\ExpressionEngineInterface
+     * @return \Stillat\Common\Math\ExpressionEngines\ExpressionEngineInterface
      * @throws InvalidArgumentException
      */
     private function makeDriver($driverName)
@@ -147,6 +147,7 @@ class MathManager {
 	/**
 	 * Returns the next highest integer of a number.
 	 *
+     * @param  number $number
 	 * @return int
 	 */
 	public function ceiling($number)
@@ -266,7 +267,7 @@ class MathManager {
 	 */
 	public function round($number, $precision = 0, $mode = PHP_ROUND_HALF_UP)
 	{
-		return $this->expressionEngine->round($number, $precision, $mode = PHP_ROUND_HALF_UP);
+		return $this->expressionEngine->round($number, $precision, $mode);
 	}
 
 	/**
