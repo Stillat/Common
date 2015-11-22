@@ -1,4 +1,6 @@
-<?php namespace Stillat\Common\Collections\Sorting;
+<?php
+
+namespace Stillat\Common\Contracts\Collections\Sorting\Drivers;
 
 interface ArraySortingInterface {
 	
