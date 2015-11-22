@@ -1,11 +1,17 @@
-<?php namespace Stillat\Common\Collections;
+<?php
 
-class CollectionStack implements StackInterface {
+namespace Stillat\Common\Collections;
+
+use Stillat\Common\Contracts\Collections\StackInterface;
+use Collection\Collection;
+
+class CollectionStack implements StackInterface
+{
 
     /**
      * The collection instance.
      *
-     * @var \Stillat\Common\Collections\Collection
+     * @var \Collection\Collection
      */
     protected $collection = null;
 
@@ -58,8 +64,7 @@ class CollectionStack implements StackInterface {
     {
         $depthPosition = $this->count() - $depth;
 
-        if (isset($this->collection[$depthPosition]))
-        {
+        if (isset($this->collection[$depthPosition])) {
             return $this->collection[$depthPosition];
         }
 
