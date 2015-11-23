@@ -1,3 +1,7 @@
-<?php namespace Stillat\Common\Exceptions;
+<?php
 
-class ArgumentException extends StillatException {}
+namespace Stillat\Common\Exceptions;
+
+class ArgumentException extends StillatException
+{
+}

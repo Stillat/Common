@@ -1,3 +1,7 @@
-<?php namespace Stillat\Common\Exceptions;
+<?php
 
-class NotImplementedException extends StillatException {}
+namespace Stillat\Common\Exceptions;
+
+class NotImplementedException extends StillatException
+{
+}

@@ -1,3 +1,7 @@
-<?php namespace Stillat\Common\Exceptions;
+<?php
 
-class DivideByZeroException extends StillatException {}
+namespace Stillat\Common\Exceptions;
+
+class DivideByZeroException extends StillatException
+{
+}
