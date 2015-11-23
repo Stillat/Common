@@ -2,6 +2,15 @@
 
 namespace Stillat\Common\Contracts\Collections;
 
+/**
+ * Interface ExtendedCollectionInterface
+ *
+ * Extended collections are similar to collection found in the "stillat/collection"
+ * and "illuminate/support" packages, except they have "extended" features, which
+ * are defined below.
+ *
+ * @package Stillat\Common\Contracts\Collections
+ */
 interface ExtendedCollectionInterface
 {
 
