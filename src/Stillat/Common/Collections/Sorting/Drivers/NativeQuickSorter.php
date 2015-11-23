@@ -1,30 +1,35 @@
-<?php namespace Stillat\Common\Collections\Sorting\Drivers;
+<?php
 
-class NativeQuickSorter extends BaseSorter {
+namespace Stillat\Common\Collections\Sorting\Drivers;
 
-	/**
-	 * Sorts the given array using a quick sort algorithm.
-	 *
-	 * @param  array $collection
-	 * @return array
-	 */
-	public function asc(array $collection)
-	{
-		$temporaryCollection = $collection;
-		asort($temporaryCollection);
-		return $temporaryCollection;
-	}
+class NativeQuickSorter extends BaseSorter
+{
 
-	/**
-	 * Inversely sorts the given array using a quick sort algorithm
-	 *
-	 * @param  array $collection
-	 * @return array
-	 */
-	public function desc(array $collection)
-	{
-		$temporaryCollection = $collection;
-		arsort($temporaryCollection);
-		return $temporaryCollection;
-	}
+    /**
+     * Sorts the given array using a quick sort algorithm.
+     *
+     * @param  array $collection
+     *
+     * @return array
+     */
+    public function asc(array $collection)
+    {
+        $temporaryCollection = $collection;
+        asort($temporaryCollection);
+        return $temporaryCollection;
+    }
+
+    /**
+     * Inversely sorts the given array using a quick sort algorithm
+     *
+     * @param  array $collection
+     *
+     * @return array
+     */
+    public function desc(array $collection)
+    {
+        $temporaryCollection = $collection;
+        arsort($temporaryCollection);
+        return $temporaryCollection;
+    }
 }
