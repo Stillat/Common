@@ -2,29 +2,23 @@
 
 namespace Stillat\Common\Collections;
 
+use Collection\Collection;
+use Stillat\Common\Collections\Sorting\Sortable;
+use Stillat\Common\Contracts\Collections\ExtendedCollectionInterface;
 use Stillat\Common\Exceptions\InvalidArgumentException;
 
-class ExtendedCollection extends IlluminateCollection implements CollectionInterface
+class ExtendedCollection extends Collection implements ExtendedCollectionInterface
 {
+    use Sortable;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function asc()
+    protected function &getSortableItems()
     {
-        $this->items = Sort::asc($this->items);
-
-        return $this;
+        return $this->items;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function desc()
+    protected function setSortableItems($items)
     {
-        $this->items = Sort::desc($this->items);
-
-        return $this;
+        $this->items = $items;
     }
 
     /**
