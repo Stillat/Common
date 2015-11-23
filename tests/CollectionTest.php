@@ -1,6 +1,6 @@
 <?php
 
-use \Stillat\Common\Collections\Collection;
+use Stillat\Common\Collections\ExtendedCollection as Collection;
 
 class CollectionTest extends PHPUnit_Framework_TestCase {
 
