@@ -2,7 +2,7 @@
 
 namespace Stillat\Common\Collections\Sorting\Drivers;
 
-use Stillat\Common\Collections\Sorting\ArraySortingInterface;
+use Stillat\Common\Contracts\Collections\Sorting\Drivers\ArraySortingInterface;
 
 abstract class BaseSorter implements ArraySortingInterface
 {
