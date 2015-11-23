@@ -1,10 +1,9 @@
-Stillat Common
-======
+![](stillat_common.png)
 
-The `Stillat/Common` package contains features that are *common* to many different applications that developers build. This includes an improvement to PHP arrays, sorting algorithms and more.
+The `stillat/common` package contains features that are common to many different applications that developers build. This includes an extended version of the [`stillat/collection`](https://github.com/Stillat/Collection) library (this extension adds sorting and extra features, for example).
 
-This library is intended for use with Laravel 4.2 and above. Currently, there are no options for a standalone library.
+This library is currently being rewritten for a version 3 release. This new release will remove the Laravel framework as a requirement (integration with Laravel will still be possible though).
 
-## Docs
+## Documentation
 
-The docs will appear in the `Stillat/docs` repository located at https://github.com/Stillat/docs. This is done so all the `Stillat` packages are documented in one location, which makes it much easier for me.
+The docs will appear in the `Stillat/docs` repository located at https://github.com/Stillat/docs. This is done so all the `Stillat` packages are documented in one location, which makes it much easier for me. Some basic documentation may appear in this readme at a later date, so check back!
