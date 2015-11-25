@@ -290,5 +290,4 @@ interface ExpressionEngineInterface
      */
     public function factorial($number);
 
-
 }
