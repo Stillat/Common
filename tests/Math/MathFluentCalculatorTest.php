@@ -104,4 +104,37 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(18, $this->calculator->get());
     }
 
+    public function testFluentAbsFunctionCalls()
+    {
+        $this->calculator->set(10)->add()->abs(-20)->abs(-20)->abs(-200);
+        $this->assertEquals(250, $this->calculator->get());
+    }
+
+    public function testFluentAcosFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->acos('0.15');
+        $this->assertEquals('1.4202', $this->calculator->get());
+
+        $this->calculator->reset()->withPrecision(4)->add()->acos('0.15')->subtract()->acos('0.15');
+        $this->assertEquals('0', $this->calculator->get());
+    }
+
+    public function testFluentAsinFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->asin('0.15');
+        $this->assertEquals('0.1506', $this->calculator->get());
+
+        $this->calculator->reset()->withPrecision(4)->add()->asin(0.15)->subtract()->asin(0.15);
+        $this->assertEquals(0, $this->calculator->get());
+    }
+
+    public function testFluentAtanFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->atan(0.15);
+        $this->assertEquals('0.1489', $this->calculator->get());
+
+        $this->calculator->reset()->withPrecision(4)->add()->atan(0.15)->subtract()->atan(0.15);
+        $this->assertEquals(0, $this->calculator->get());
+    }
+
 }

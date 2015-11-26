@@ -34,6 +34,8 @@ class FluentCalculator
 
     protected $currentOperation = null;
 
+    protected $currentFunction = null;
+
     protected $writeToHistory = true;
 
     public function __construct(ExpressionEngineInterface $expressionEngine)
@@ -201,6 +203,12 @@ class FluentCalculator
         }
     }
 
+    protected function applyFunctionOnExpressionEngine($func, $number)
+    {
+        $this->addToHistory($func, $number);
+        $this->setCurrentValue($this->expressionEngine->{$this->currentOperation}($this->getCurrentValue(), $this->expressionEngine->{$func}($number)));
+    }
+
     /**
      * Adds a given number to the current value.
      *
@@ -276,6 +284,39 @@ class FluentCalculator
 
         return $this;
     }
+
+    protected function runExpressionFunction($func, $number)
+    {
+        if ($number == null) {
+            $this->currentFunction = $func;
+            $this->addGroupOperationToHistory($func);
+        } else {
+            $this->applyFunctionOnExpressionEngine($func, $number);
+        }
+
+        return $this;
+    }
+
+    public function abs($number = null)
+    {
+        return $this->runExpressionFunction('abs', $number);
+    }
+
+    public function acos($number = null)
+    {
+        return $this->runExpressionFunction('acos', $number);
+    }
+
+    public function asin($number = null)
+    {
+        return $this->runExpressionFunction('asin', $number);
+    }
+
+    public function atan($number = null)
+    {
+        return $this->runExpressionFunction('atan', $number);
+    }
+
 
     public function __toString()
     {
