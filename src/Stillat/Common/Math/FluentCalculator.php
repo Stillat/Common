@@ -161,6 +161,7 @@ class FluentCalculator
     public function set($number)
     {
         $this->setCurrentValue($number);
+        $this->currentOperation = 'add';
         return $this;
     }
 
