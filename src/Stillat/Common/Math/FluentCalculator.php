@@ -34,6 +34,8 @@ class FluentCalculator
 
     protected $currentOperation = null;
 
+    protected $writeToHistory = true;
+
     public function __construct(ExpressionEngineInterface $expressionEngine)
     {
         $this->expressionEngine = $expressionEngine;
@@ -99,7 +101,14 @@ class FluentCalculator
 
     protected function addToHistory($historyItemName, $historyItemValue)
     {
-        $this->operationValues[$this->currentTotalName]->getHistory()[] = [$historyItemName, $historyItemValue];
+        if ($this->writeToHistory) {
+            $this->operationValues[$this->currentTotalName]->getHistory()[] = [$historyItemName, $historyItemValue];
+        }
+    }
+
+    protected function addGroupOperationToHistory($historyItemValue)
+    {
+        $this->addToHistory('group_operation', $historyItemValue);
     }
 
     /**
@@ -146,9 +155,15 @@ class FluentCalculator
         $groupFunction($pristineCopy);
         $value = $pristineCopy->get('default');
         $history = $pristineCopy->getHistory('default');
+        $this->addToHistory('group', $history);
         $pristineCopy = null;
         unset($pristineCopy);
-        return $this->{$this->currentOperation}($value);
+
+        $this->writeToHistory = false;
+        $this->{$this->currentOperation}($value);
+        $this->writeToHistory = true;
+
+        return $this;
     }
 
     /**
@@ -193,10 +208,14 @@ class FluentCalculator
      *
      * @return $this
      */
-    public function add($number = 0)
+    public function add($number = null)
     {
-        $this->performOperationOnExpressionEngine('add', $number);
-
+        if ($number == null) {
+            $this->currentOperation = 'add';
+            $this->addGroupOperationToHistory('add');
+        } else {
+            $this->performOperationOnExpressionEngine('add', $number);
+        }
         return $this;
     }
 
@@ -207,9 +226,14 @@ class FluentCalculator
      *
      * @return $this
      */
-    public function subtract($number = 0)
+    public function subtract($number = null)
     {
-        $this->performOperationOnExpressionEngine('subtract', $number);
+        if ($number == null) {
+            $this->currentOperation = 'subtract';
+            $this->addGroupOperationToHistory('subtract');
+        } else {
+            $this->performOperationOnExpressionEngine('subtract', $number);
+        }
 
         return $this;
     }
@@ -225,6 +249,7 @@ class FluentCalculator
     {
         if ($number === null) {
             $this->currentOperation = 'multiply';
+            $this->addGroupOperationToHistory('multiply');
         } else {
             $this->performOperationOnExpressionEngine('multiply', $number);
         }
@@ -244,6 +269,7 @@ class FluentCalculator
     {
         if ($number === null) {
             $this->currentOperation = 'divide';
+            $this->addGroupOperationToHistory('divide');
         } else {
             $this->performOperationOnExpressionEngine('divide', $number);
         }
