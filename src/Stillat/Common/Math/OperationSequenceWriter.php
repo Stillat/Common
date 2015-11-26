@@ -50,7 +50,7 @@ final class OperationSequenceWriter
                 $this->writingGroup = true;
                 return '(' . $this->write($value) . ')';
             case 'group_operation':
-                return ' ' . $this->getOperatorSymbol($value, $next) . ' ';
+                return ($neighboringGroupOperation) ? '' : ' ' . $this->getOperatorSymbol($value, $next) . ' ';
             default:
                 return '';
         }

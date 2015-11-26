@@ -44,18 +44,18 @@ class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
 
     public function testWriterHandlesGroups()
     {
-        $this->calc->set(10)->add()->group(function(FluentCalculator $calc) {
-           $calc->set(10)->add(20);
+        $this->calc->set(10)->add()->group(function (FluentCalculator $calc) {
+            $calc->set(10)->add(20);
         });
         $this->assertEquals('10 + (10 + 20)', $this->getExpression());
     }
 
     public function testWriterHandlesNestedGroups()
     {
-        $this->calc->set(10)->add()->group(function(FluentCalculator $calc) {
-           $calc->group(function(FluentCalculator $calc) {
-              $calc->set(10)->add(20);
-           });
+        $this->calc->set(10)->add()->group(function (FluentCalculator $calc) {
+            $calc->group(function (FluentCalculator $calc) {
+                $calc->set(10)->add(20);
+            });
         });
 
         $this->assertEquals('10 + ((10 + 20))', $this->getExpression());
@@ -63,9 +63,9 @@ class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
 
     public function testWriterHandlesDeeplyNestedGroups()
     {
-        /**
-         * Test 2 + (3 - 3 + (33 - 23 + (2 * (9 / 3))))
-         */
+
+        // Test 2 + (3 - 3 + (33 - 23 + (2 * (9 / 3))))
+
         $this->calc->set(2)->add()->group(function (FluentCalculator $calc) {
             $calc->add(3)->subtract(3)->add()->group(function (FluentCalculator $calc) {
                 $calc->add(33)->subtract(23)->add()->group(function (FluentCalculator $calc) {
@@ -77,6 +77,15 @@ class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
         });
 
         $this->assertEquals('2 + (3 - 3 + (33 - 23 + (2 * (9 / 3))))', $this->getExpression());
+    }
+
+
+    public function testWriterCanHandleSingleGroups()
+    {
+        $this->calc->add()->group(function (FluentCalculator $calc) {
+            $calc->add(10);
+        });
+        $this->assertEquals('(10)', $this->getExpression());
     }
 
 }
