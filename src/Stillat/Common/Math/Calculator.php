@@ -4,7 +4,7 @@ namespace Stillat\Common\Math;
 
 use Stillat\Common\Contracts\Math\ExpressionEngineInterface;
 
-class MathManager
+class Calculator
 {
 
     /**

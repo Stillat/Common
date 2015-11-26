@@ -2,7 +2,7 @@
 
 use Stillat\Common\Math\ExpressionEngines\BinaryCalculatorExpressionEngine;
 use Stillat\Common\Math\ExpressionEngines\NativeExpressionEngine;
-use Stillat\Common\Math\MathManager;
+use Stillat\Common\Math\Calculator;
 
 class MathExpressionEnginesTest extends PHPUnit_Framework_TestCase
 {
@@ -13,14 +13,14 @@ class MathExpressionEnginesTest extends PHPUnit_Framework_TestCase
 
     public function testBinaryCalculationEngine()
     {
-        $this->manager = new MathManager(new BinaryCalculatorExpressionEngine());
+        $this->manager = new Calculator(new BinaryCalculatorExpressionEngine());
         $this->manager->setPrecision($this->testPrecision);
         $this->runCalcTests();
     }
 
     public function testNativeEngine()
     {
-        $this->manager = new MathManager(new NativeExpressionEngine());
+        $this->manager = new Calculator(new NativeExpressionEngine());
         $this->manager->setPrecision($this->testPrecision);
         $this->runCalcTests();
     }
@@ -30,7 +30,7 @@ class MathExpressionEnginesTest extends PHPUnit_Framework_TestCase
      */
     public function testBinaryCalculationEngineThrowsDivideByZeroException()
     {
-        $manager = new MathManager(new BinaryCalculatorExpressionEngine());
+        $manager = new Calculator(new BinaryCalculatorExpressionEngine());
         $manager->divide('5', '0');
     }
 
@@ -39,7 +39,7 @@ class MathExpressionEnginesTest extends PHPUnit_Framework_TestCase
      */
     public function testNativeDriverThrowsDivideByZeroException()
     {
-        $manager = new MathManager(new NativeExpressionEngine());
+        $manager = new Calculator(new NativeExpressionEngine());
         $manager->divide('5', '0');
     }
 
