@@ -10,37 +10,32 @@ final class OperationSequenceWriter
     public function write(Collection $sequences)
     {
         $sequences = clone $sequences;
+        $expression = '';
         if ($sequences->count() > 0) {
-            $initialValue = 0;
-            if ($sequences[0][0] == 'set') {
-                $initialValue = $sequences[0][1];
-                $sequences->shift();
+            $sequences = $sequences->reverse();
+            foreach ($sequences as $sequence) {
+                $expression = $this->getNextPart($sequence[0], $sequence[1]).$expression;
             }
-
-            $expression = $initialValue;
-
-            foreach ($sequences as $value) {
-                $expression .= $this->getNextPart($value[0], $value[1]);
-            }
-
-            return $expression;
         }
+
+        return $expression;
     }
 
-    private function getNextPart($operation, $value)
+    private function getNextPart($historyItem, $value)
     {
-        switch ($operation)
-        {
-            case 'add':
-                return ' + '.$value;
-            case 'subtract':
-                return ' - '.$value;
-            case 'multiply':
-                return ' * '.$value;
-            case 'divide':
-                return ' / '.$value;
-            default:
-                return '';
+        if (!is_array($value)) {
+            switch ($historyItem) {
+                case 'add':
+                    return ' + '.$value;
+                case 'subtract':
+                    return ' - '.$value;
+                case 'multiply':
+                    return ' * '.$value;
+                case 'divide':
+                    return ' / '.$value;
+                case 'set':
+                    return $value;
+            }
         }
     }
 
