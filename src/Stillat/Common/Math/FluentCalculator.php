@@ -162,6 +162,7 @@ class FluentCalculator
     {
         $this->setCurrentValue($number);
         $this->currentOperation = 'add';
+        $this->addToHistory('set',$number);
         return $this;
     }
 
