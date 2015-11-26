@@ -60,12 +60,12 @@ class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('10 + ((10 + 20))', $this->getExpression());
 
-        $this->calc->reset()->set(30)->subtract()->group(function(FluentCalculator $calc) {
+        $this->calc->reset()->set(30)->subtract()->group(function (FluentCalculator $calc) {
             $calc->group(function (FluentCalculator $calc) {
                 $calc->set(10)->add(20);
             });
         });
-        
+
         $this->assertEquals('30 - ((10 + 20))', $this->getExpression());
     }
 
