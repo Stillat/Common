@@ -102,7 +102,7 @@ class FluentCalculator
     protected function addToHistory($historyItemName, $historyItemValue)
     {
         if ($this->writeToHistory) {
-            $this->operationValues[$this->currentTotalName]->getHistory()[] = [$historyItemName, $historyItemValue];
+            $this->operationValues[$this->currentTotalName]->appendHistory([$historyItemName, $historyItemValue]);
         }
     }
 

@@ -25,6 +25,11 @@ final class OperationSequenceContainer
         return $this->operationHistory;
     }
 
+    public function appendHistory($historyItem)
+    {
+        $this->operationHistory[] = $historyItem;
+    }
+
     public function getName()
     {
         return $this->operationName;
