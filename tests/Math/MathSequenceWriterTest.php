@@ -38,9 +38,45 @@ class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('10 + 10 - 5 * 50', $this->getExpression());
         $this->calc->divide(2);
         $this->assertEquals('10 + 10 - 5 * 50 / 2', $this->getExpression());
-
         $this->calc->reset()->set(10)->add(10)->subtract(5)->multiply(50)->divide(2);
         $this->assertEquals('10 + 10 - 5 * 50 / 2', $this->getExpression());
+    }
+
+    public function testWriterHandlesGroups()
+    {
+        $this->calc->set(10)->add()->group(function(FluentCalculator $calc) {
+           $calc->set(10)->add(20);
+        });
+        $this->assertEquals('10 + (10 + 20)', $this->getExpression());
+    }
+
+    public function testWriterHandlesNestedGroups()
+    {
+        $this->calc->set(10)->add()->group(function(FluentCalculator $calc) {
+           $calc->group(function(FluentCalculator $calc) {
+              $calc->set(10)->add(20);
+           });
+        });
+
+        $this->assertEquals('10 + ((10 + 20))', $this->getExpression());
+    }
+
+    public function testWriterHandlesDeeplyNestedGroups()
+    {
+        /**
+         * Test 2 + (3 - 3 + (33 - 23 + (2 * (9 / 3))))
+         */
+        $this->calc->set(2)->add()->group(function (FluentCalculator $calc) {
+            $calc->add(3)->subtract(3)->add()->group(function (FluentCalculator $calc) {
+                $calc->add(33)->subtract(23)->add()->group(function (FluentCalculator $calc) {
+                    $calc->set(2)->multiply()->group(function (FluentCalculator $calc) {
+                        $calc->set(9)->divide(3);
+                    });
+                });
+            });
+        });
+
+        $this->assertEquals('2 + (3 - 3 + (33 - 23 + (2 * (9 / 3))))', $this->getExpression());
     }
 
 }
