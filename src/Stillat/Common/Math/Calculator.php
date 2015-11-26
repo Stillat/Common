@@ -4,6 +4,15 @@ namespace Stillat\Common\Math;
 
 use Stillat\Common\Contracts\Math\ExpressionEngineInterface;
 
+/**
+ * Class Calculator
+ *
+ * The Calculator is simply a concrete wrapper around ExpressionEngineInterface instances. This
+ * will allow you to use a concrete class that can still have it's underlying implementation
+ * swapped out.
+ *
+ * @package Stillat\Common\Math
+ */
 class Calculator
 {
 
