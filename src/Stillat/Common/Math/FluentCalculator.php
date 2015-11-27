@@ -6,7 +6,7 @@ use Closure;
 use BadMethodCallException;
 use Collection\Collection;
 use Stillat\Common\Contracts\Math\ExpressionEngineInterface;
-use Stillat\Common\Exceptions\InvalidArgumentException;
+use Stillat\Common\Exceptions\Argument\InvalidArgumentException;
 
 class FluentCalculator
 {
@@ -315,6 +315,11 @@ class FluentCalculator
     public function atan($number = null)
     {
         return $this->runExpressionFunction('atan', $number);
+    }
+
+    public function atan2($x = null, $y = null)
+    {
+
     }
 
 
