@@ -5,7 +5,7 @@ use Stillat\Common\Collections\Sorting\CollectionSortMap;
 class CollectionSortMapThresholdTest extends PHPUnit_Framework_TestCase {
 
 	/**
-     * @expectedException \Stillat\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Stillat\Common\Exceptions\Argument\InvalidArgumentException
      */
 	public function testAddThresholdThrowsExcpetionOnInvalidInput()
 	{

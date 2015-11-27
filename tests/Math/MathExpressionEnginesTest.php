@@ -26,7 +26,7 @@ class MathExpressionEnginesTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Stillat\Common\Exceptions\DivideByZeroException
+     * @expectedException \Stillat\Common\Exceptions\Arithmetic\DivideByZeroException
      */
     public function testBinaryCalculationEngineThrowsDivideByZeroException()
     {
@@ -35,7 +35,7 @@ class MathExpressionEnginesTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Stillat\Common\Exceptions\DivideByZeroException
+     * @expectedException \Stillat\Common\Exceptions\Arithmetic\DivideByZeroException
      */
     public function testNativeDriverThrowsDivideByZeroException()
     {

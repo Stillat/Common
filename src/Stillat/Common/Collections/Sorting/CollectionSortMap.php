@@ -2,7 +2,7 @@
 
 namespace Stillat\Common\Collections\Sorting;
 
-use Stillat\Common\Exceptions\InvalidArgumentException;
+use Stillat\Common\Exceptions\Argument\InvalidArgumentException;
 
 class CollectionSortMap
 {

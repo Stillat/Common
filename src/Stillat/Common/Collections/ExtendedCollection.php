@@ -5,7 +5,7 @@ namespace Stillat\Common\Collections;
 use Collection\Collection;
 use Stillat\Common\Collections\Sorting\Sortable;
 use Stillat\Common\Contracts\Collections\ExtendedCollectionInterface;
-use Stillat\Common\Exceptions\InvalidArgumentException;
+use Stillat\Common\Exceptions\Argument\InvalidArgumentException;
 
 class ExtendedCollection extends Collection implements ExtendedCollectionInterface
 {

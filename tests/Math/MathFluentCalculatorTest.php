@@ -75,7 +75,7 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Stillat\Common\Exceptions\DivideByZeroException
+     * @expectedException \Stillat\Common\Exceptions\Arithmetic\DivideByZeroException
      */
     public function testFluentCalculatorThrowsDivideByZeroException()
     {

@@ -3,7 +3,7 @@
 namespace Stillat\Common\Math\ExpressionEngines;
 
 use Stillat\Common\Contracts\Math\ExpressionEngineInterface;
-use Stillat\Common\Exceptions\DivideByZeroException;
+use Stillat\Common\Exceptions\Arithmetic\DivideByZeroException;
 
 class NativeExpressionEngine implements ExpressionEngineInterface
 {
