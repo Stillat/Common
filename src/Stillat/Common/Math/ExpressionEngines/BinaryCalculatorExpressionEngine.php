@@ -4,9 +4,11 @@ namespace Stillat\Common\Math\ExpressionEngines;
 
 use Stillat\Common\Contracts\Math\ExpressionEngineInterface;
 use Stillat\Common\Exceptions\Arithmetic\DivideByZeroException;
+use Stillat\Common\Traits\Expectations;
 
 class BinaryCalculatorExpressionEngine implements ExpressionEngineInterface
 {
+    use Expectations;
 
     /**
      * The precision to use in calculations
@@ -283,9 +285,7 @@ class BinaryCalculatorExpressionEngine implements ExpressionEngineInterface
      */
     public function divide($numberOne, $numberTwo)
     {
-        if ($numberTwo == 0) {
-            throw new DivideByZeroException;
-        }
+        $this->expectNumberNotZeroForDivision($numberTwo);
 
         return $this->bcCorrect(bcdiv($numberOne, $numberTwo, $this->correctingPrecision));
     }
