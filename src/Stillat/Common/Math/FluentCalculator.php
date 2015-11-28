@@ -302,8 +302,20 @@ class FluentCalculator
         return $this;
     }
 
+    protected function reduceValue(&$value)
+    {
+        if ($value instanceof Closure) {
+            $value = $value($this->getPristineCopy());
+            if ($value instanceof FluentCalculator) {
+                $value = $value->get();
+            }
+        }
+        return $this;
+    }
+
     protected function runExpressionFunction($func, $number)
     {
+        $this->reduceValue($number);
         $this->addToHistory($func, $number);
         $this->applyFunctionOnExpressionEngine($func, $number);
 
@@ -312,6 +324,7 @@ class FluentCalculator
 
     protected function runExpressionFunction2Param($func, $number, $numberTwo)
     {
+        $this->reduceValue($number)->reduceValue($numberTwo);
         $this->addToHistory($func, [$number, $numberTwo]);
         $this->applyFunctionOnExpressionEngine2Param($func, $number, $numberTwo);
 
@@ -320,6 +333,7 @@ class FluentCalculator
 
     protected function runExpressionFunction3Param($func, $number, $numberTwo, $numberThree)
     {
+        $this->reduceValue($number)->reduceValue($numberTwo)->reduceValue($numberThree);
         $this->addToHistory($func, [$number, $numberTwo]);
         $this->applyFunctionOnExpressionEngine3Param($func, $number, $numberTwo, $numberThree);
 
@@ -329,7 +343,7 @@ class FluentCalculator
     /**
      * Returns the absolute value of a number.
      *
-     * @param  float $number
+     * @param  float|Closure $number
      *
      * @return float|int
      */
@@ -341,7 +355,7 @@ class FluentCalculator
     /**
      * Returns the arc cosine of a number.
      *
-     * @param  float $number
+     * @param  float|Closure $number
      *
      * @return float The arc cosine of a number in radians.
      */
@@ -353,7 +367,7 @@ class FluentCalculator
     /**
      * Returns the arc sine of a number.
      *
-     * @param  float $number
+     * @param  float|Closure $number
      *
      * @return float The arc sine of a number in radians.
      */
@@ -365,7 +379,7 @@ class FluentCalculator
     /**
      * Returns the arc tangent of a number.
      *
-     * @param  float $number
+     * @param  float|Closure $number
      *
      * @return float The arc tangent of a number in radians.
      */
@@ -377,8 +391,8 @@ class FluentCalculator
     /**
      * Calculates the arc tangent of two variables.
      *
-     * @param  float $x
-     * @param  float $y
+     * @param  float|Closure $x
+     * @param  float|Closure $y
      *
      * @return float
      */
@@ -390,7 +404,7 @@ class FluentCalculator
     /**
      * Returns the cosine of the specified angle.
      *
-     * @param  float $angle
+     * @param  float|Closure $angle
      *
      * @return float
      */
@@ -402,7 +416,7 @@ class FluentCalculator
     /**
      * Returns the hyperbolic cosine of the angle.
      *
-     * @param  float $angle
+     * @param  float|Closure $angle
      *
      * @return float
      */
@@ -414,7 +428,7 @@ class FluentCalculator
     /**
      * Returns e raised to a given power.
      *
-     * @param  float $number
+     * @param  float|Closure $number
      *
      * @return double
      */
@@ -426,8 +440,8 @@ class FluentCalculator
     /**
      * Returns the logarithm of a number in a specified base.
      *
-     * @param  double $number
-     * @param  double $base optional
+     * @param  double|Closure $number
+     * @param  double|Closure $base optional
      *
      * @return double
      */
@@ -439,8 +453,8 @@ class FluentCalculator
     /**
      * Returns a base number raised to an exponent.
      *
-     * @param  $number     number
-     * @param  $exponent   number
+     * @param  $number   |Closure     number
+     * @param  $exponent |Closure   number
      *
      * @return float
      */
@@ -452,7 +466,7 @@ class FluentCalculator
     /**
      * Returns the sine of the given angle.
      *
-     * @param  number|mixed $angle The angle in radians.
+     * @param  number|mixed|Closure $angle The angle in radians.
      *
      * @return number|mixed
      */
@@ -464,7 +478,7 @@ class FluentCalculator
     /**
      * Returns the hyperbolic sine of of the angle.
      *
-     * @param  number|mixed $angle
+     * @param  number|mixed|Closure $angle
      *
      * @return number|mixed
      */
@@ -476,7 +490,7 @@ class FluentCalculator
     /**
      * Returns the square root of a given number.
      *
-     * @param  number|mixed $number
+     * @param  number|mixed|Closure $number
      *
      * @return number|mixed
      */
@@ -488,7 +502,7 @@ class FluentCalculator
     /**
      * Returns the tangent of a specified angle.
      *
-     * @param  number|mixed $angle The angle in radians.
+     * @param  number|mixed|Closure $angle The angle in radians.
      *
      * @return number|mixed
      */
@@ -500,7 +514,7 @@ class FluentCalculator
     /**
      * Returns the hyperbolic tangent of an angle.
      *
-     * @param  number|mixed $angle
+     * @param  number|mixed|Closure $angle
      *
      * @return number|mixed
      */
@@ -512,8 +526,8 @@ class FluentCalculator
     /**
      * Returns the remainder of two numbers.
      *
-     * @param  number|mixed $numberOne
-     * @param  number|mixed $numberTwo
+     * @param  number|mixed|Closure $numberOne
+     * @param  number|mixed|Closure $numberTwo
      *
      * @return number|mixed
      */
@@ -525,7 +539,7 @@ class FluentCalculator
     /**
      * Calculates the factorial of a number.
      *
-     * @param  number|mixed $number
+     * @param  number|mixed|Closure $number
      *
      * @return number|mixed
      */
@@ -537,7 +551,7 @@ class FluentCalculator
     /**
      * Returns the next lowest integer of a number.
      *
-     * @param  float $number
+     * @param  float|Closure $number
      *
      * @return int
      */
@@ -549,7 +563,7 @@ class FluentCalculator
     /**
      * Returns the base-10 logarithm of a number.
      *
-     * @param  double $number
+     * @param  double|Closure $number
      *
      * @return double
      */
@@ -561,7 +575,7 @@ class FluentCalculator
     /**
      * Returns the highest value in the array of numbers.
      *
-     * @param  array $numbers
+     * @param  array|Closure $numbers
      *
      * @return number|mixed
      */
@@ -573,7 +587,7 @@ class FluentCalculator
     /**
      * Returns the lowest value in the array of numbers.
      *
-     * @param  array $numbers
+     * @param  array|Closure $numbers
      *
      * @return number|mixed
      */
@@ -585,9 +599,9 @@ class FluentCalculator
     /**
      * Rounds a number to the nearest value.
      *
-     * @param float $number
-     * @param int   $precision optional The number of digits to round to.
-     * @param int   $mode      optional The rounding mode.
+     * @param float|Closure $number
+     * @param int|Closure   $precision optional The number of digits to round to.
+     * @param int|Closure   $mode      optional The rounding mode.
      *
      * @return number|mixed
      */
@@ -599,7 +613,7 @@ class FluentCalculator
     /**
      * Returns the next highest integer of a number.
      *
-     * @param  number $number
+     * @param  number|Closure $number
      *
      * @return int
      */
@@ -611,7 +625,7 @@ class FluentCalculator
     /**
      * Returns the integral part of a given number.
      *
-     * @param  float $number
+     * @param  float|Closure $number
      *
      * @return int|0 on failure
      */

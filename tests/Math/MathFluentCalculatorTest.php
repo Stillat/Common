@@ -266,4 +266,22 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('10.4000', $this->calculator->get());
     }
 
+    public function testFunctionsCanAcceptClosures()
+    {
+        $this->calculator->add()->abs(function() {
+           return -10 * 1000;
+        });
+
+        $this->assertEquals(10000, $this->calculator->get());
+    }
+
+    public function testFunctionsCanAcceptClosuresWithFluentInstance()
+    {
+        $this->calculator->add()->abs(function (FluentCalculator $calc) {
+           return $calc->set(10)->add(30)->multiply(-1);
+        });
+
+        $this->assertEquals(40, $this->calculator->get());
+    }
+
 }
