@@ -7,9 +7,11 @@ use BadMethodCallException;
 use Collection\Collection;
 use Stillat\Common\Contracts\Math\ExpressionEngineInterface;
 use Stillat\Common\Exceptions\Argument\InvalidArgumentException;
+use Stillat\Common\Traits\Expectations;
 
 class FluentCalculator
 {
+    use Expectations;
 
     /**
      * The ExpressionEngineInterface implementation.
@@ -206,7 +208,15 @@ class FluentCalculator
     protected function applyFunctionOnExpressionEngine($func, $number)
     {
         $this->addToHistory($func, $number);
-        $this->setCurrentValue($this->expressionEngine->{$this->currentOperation}($this->getCurrentValue(), $this->expressionEngine->{$func}($number)));
+        $this->setCurrentValue($this->expressionEngine->{$this->currentOperation}($this->getCurrentValue(),
+            $this->expressionEngine->{$func}($number)));
+    }
+
+    protected function applyFunctionOnExpressionEngine2Param($func, $number, $numberTwo)
+    {
+        $this->addToHistory($func, $number);
+        $this->setCurrentValue($this->expressionEngine->{$this->currentOperation}($this->getCurrentValue(),
+            $this->expressionEngine->{$func}($number, $numberTwo)));
     }
 
     /**
@@ -297,6 +307,18 @@ class FluentCalculator
         return $this;
     }
 
+    protected function runExpressionFunction2Param($func, $number, $numberTwo)
+    {
+        if ($number == null) {
+            $this->currentFunction = $func;
+            $this->addGroupOperationToHistory($func);
+        } else {
+            $this->applyFunctionOnExpressionEngine2Param($func, $number, $numberTwo);
+        }
+
+        return $this;
+    }
+
     public function abs($number = null)
     {
         return $this->runExpressionFunction('abs', $number);
@@ -319,7 +341,8 @@ class FluentCalculator
 
     public function atan2($x = null, $y = null)
     {
-
+        $this->expectValuesWhenNotNull($x, [&$y], 'Dividend parameter required when divisor parameter present.');
+        return $this->runExpressionFunction2Param('atan2', $x, $y);
     }
 
 

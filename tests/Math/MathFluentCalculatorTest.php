@@ -137,4 +137,18 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->calculator->get());
     }
 
+    /**
+     * @expectedException \Stillat\Common\Exceptions\Argument\MissingArgumentException
+     */
+    public function testFluentAtan2ThrowExceptionWhenMissingRequiredParameters()
+    {
+        $this->calculator->atan2(10);
+    }
+
+    public function testFluentAtan2FunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->atan2(0.15, 0.45);
+        $this->assertEquals(0.3218, $this->calculator->get());
+    }
+
 }
