@@ -131,7 +131,7 @@ class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('(10)', $this->getExpression());
     }
 
-    public function testWriterCanHandleSingleParameterFunctionsFunction()
+    public function testWriterCanHandleSingleParameterFunctions()
     {
         foreach ($this->singleParameterFunctions as $func) {
             $this->calc->reset()->add()->{$func}(-10);
@@ -150,6 +150,30 @@ class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
         });
 
         $this->assertEquals('10 + 5! + (20! * 10 - 2)', $this->getExpression());
+    }
+
+    public function testWriterCanHandleTwoParameterFunctions()
+    {
+        foreach ($this->twoParameterFunctions as $func) {
+            $this->calc->reset()->add()->{$func}(1,1);
+            $this->assertEquals($func.'(1,1)', $this->getExpression());
+        }
+    }
+
+    public function testWriterCanHandleThreeParameterFunctions()
+    {
+        foreach ($this->threeParametersFunctions as $func) {
+            $this->calc->reset()->add()->{$func}(1,1,1);
+            $this->assertEquals($func.'(1,1,1)', $this->getExpression());
+        }
+    }
+
+    public function testWriterCanHandleArrayParameterFunctions()
+    {
+        foreach ($this->arrayParameterFunctions as $func) {
+            $this->calc->reset()->add()->{$func}([1,2,3]);
+            $this->assertEquals($func.'([1,2,3])', $this->getExpression());
+        }
     }
 
 }

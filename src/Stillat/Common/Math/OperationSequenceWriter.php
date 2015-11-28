@@ -9,28 +9,6 @@ final class OperationSequenceWriter
 
     protected $writingGroup = false;
 
-    public function write(Collection $sequences)
-    {
-        $sequences = clone $sequences;
-        $expression = '';
-        if ($sequences->count() > 0) {
-            $sequences = $sequences->reverse();
-
-            $length = $sequences->count();
-            for ($i = 0; $i < $length; $i++) {
-                $sequence = $sequences[$i];
-                if (isset($sequences[$i + 1])) {
-                    $next = $sequences[$i + 1];
-                } else {
-                    $next = null;
-                }
-                $expression = $this->getNextPart($sequence[0], $sequence[1], $next) . $expression;
-            }
-        }
-
-        return $expression;
-    }
-
     protected $singleParameterFunctions = [
         'abs',
         'acos',
@@ -66,12 +44,53 @@ final class OperationSequenceWriter
         'min'
     ];
 
+    /**
+     * Writes a sequence history to a string representation of the expression.
+     *
+     * @param \Collection\Collection $sequences
+     *
+     * @return string
+     */
+    public function write(Collection $sequences)
+    {
+        $sequences = clone $sequences;
+        $expression = '';
+        if ($sequences->count() > 0) {
+            $sequences = $sequences->reverse();
+
+            $length = $sequences->count();
+            for ($i = 0; $i < $length; $i++) {
+                $sequence = $sequences[$i];
+                if (isset($sequences[$i + 1])) {
+                    $next = $sequences[$i + 1];
+                } else {
+                    $next = null;
+                }
+                $expression = $this->getNextPart($sequence[0], $sequence[1], $next) . $expression;
+            }
+        }
+
+        return $expression;
+    }
+
     private function getNextPart($historyItem, $value, $next)
     {
         $neighboringGroupOperation = ($next[0] == null);
 
         if (in_array($historyItem, $this->singleParameterFunctions)) {
             return $this->getFunctionSymbol($historyItem, $value);
+        }
+
+        if (in_array($historyItem, $this->twoParameterFunctions)) {
+            return $this->getFunctionSymbol($historyItem, $value[0], $value[1]);
+        }
+
+        if (in_array($historyItem, $this->threeParametersFunctions)) {
+            return $this->getFunctionSymbol($historyItem, $value[0], $value[1], $value[2]);
+        }
+
+        if (in_array($historyItem, $this->arrayParameterFunctions)) {
+            return $this->getArrayFunctionSymbol($historyItem, $value);
         }
 
         switch ($historyItem) {
@@ -91,7 +110,7 @@ final class OperationSequenceWriter
             case 'group_operation':
                 return ($neighboringGroupOperation) ? '' : ' ' . $this->getOperatorSymbol($value, $next) . ' ';
             case 'factorial':
-                return $value.'!';
+                return $value . '!';
             default:
                 return '';
         }
@@ -102,6 +121,13 @@ final class OperationSequenceWriter
         $params = func_get_args();
         $func = array_shift($params);
         return $func . '(' . implode(',', $params) . ')';
+    }
+
+    private function getArrayFunctionSymbol()
+    {
+        $params = func_get_args();
+        $func = array_shift($params);
+        return $func . '([' . implode(',', $params[0]) . '])';
     }
 
     private function getOperatorSymbol($operator, $next)
