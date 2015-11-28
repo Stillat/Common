@@ -214,14 +214,14 @@ class FluentCalculator
 
     protected function applyFunctionOnExpressionEngine2Param($func, $number, $numberTwo)
     {
-        $this->addToHistory($func, $number);
+        $this->addToHistory($func, [$number, $numberTwo]);
         $this->setCurrentValue($this->expressionEngine->{$this->currentOperation}($this->getCurrentValue(),
             $this->expressionEngine->{$func}($number, $numberTwo)));
     }
 
     protected function applyFunctionOnExpressionEngine3Param($func, $number, $numberTwo, $numberThree)
     {
-        $this->addToHistory($func, $number);
+        $this->addToHistory($func, [$number, $numberTwo, $numberThree]);
         $this->setCurrentValue($this->expressionEngine->{$this->currentOperation}($this->getCurrentValue(),
             $this->expressionEngine->{$func}($number, $numberTwo, $numberThree)));
     }
@@ -316,7 +316,6 @@ class FluentCalculator
     protected function runExpressionFunction($func, $number)
     {
         $this->reduceValue($number);
-        $this->addToHistory($func, $number);
         $this->applyFunctionOnExpressionEngine($func, $number);
 
         return $this;
@@ -325,7 +324,6 @@ class FluentCalculator
     protected function runExpressionFunction2Param($func, $number, $numberTwo)
     {
         $this->reduceValue($number)->reduceValue($numberTwo);
-        $this->addToHistory($func, [$number, $numberTwo]);
         $this->applyFunctionOnExpressionEngine2Param($func, $number, $numberTwo);
 
         return $this;
@@ -334,7 +332,6 @@ class FluentCalculator
     protected function runExpressionFunction3Param($func, $number, $numberTwo, $numberThree)
     {
         $this->reduceValue($number)->reduceValue($numberTwo)->reduceValue($numberThree);
-        $this->addToHistory($func, [$number, $numberTwo]);
         $this->applyFunctionOnExpressionEngine3Param($func, $number, $numberTwo, $numberThree);
 
         return $this;
