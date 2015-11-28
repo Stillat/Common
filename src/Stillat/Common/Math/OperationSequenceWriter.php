@@ -71,7 +71,7 @@ final class OperationSequenceWriter
         $neighboringGroupOperation = ($next[0] == null);
 
         if (in_array($historyItem, $this->singleParameterFunctions)) {
-            return $this->getSingleParameterFunction($historyItem, $value);
+            return $this->getFunctionSymbol($historyItem, $value);
         }
 
         switch ($historyItem) {
@@ -95,11 +95,6 @@ final class OperationSequenceWriter
             default:
                 return '';
         }
-    }
-
-    protected function getSingleParameterFunction($func, $param)
-    {
-        return $this->getFunctionSymbol($func, $param);
     }
 
     private function getFunctionSymbol()
