@@ -342,7 +342,7 @@ class FluentCalculator
      *
      * @param  float|Closure $number
      *
-     * @return float|int
+     * @return $this
      */
     public function abs($number)
     {
@@ -354,7 +354,7 @@ class FluentCalculator
      *
      * @param  float|Closure $number
      *
-     * @return float The arc cosine of a number in radians.
+     * @return $this
      */
     public function acos($number)
     {
@@ -366,7 +366,7 @@ class FluentCalculator
      *
      * @param  float|Closure $number
      *
-     * @return float The arc sine of a number in radians.
+     * @return $this
      */
     public function asin($number)
     {
@@ -378,7 +378,7 @@ class FluentCalculator
      *
      * @param  float|Closure $number
      *
-     * @return float The arc tangent of a number in radians.
+     * @return $this
      */
     public function atan($number)
     {
@@ -391,7 +391,7 @@ class FluentCalculator
      * @param  float|Closure $x
      * @param  float|Closure $y
      *
-     * @return float
+     * @return $this
      */
     public function atan2($x, $y)
     {
@@ -403,7 +403,7 @@ class FluentCalculator
      *
      * @param  float|Closure $angle
      *
-     * @return float
+     * @return $this
      */
     public function cos($angle)
     {
@@ -415,7 +415,7 @@ class FluentCalculator
      *
      * @param  float|Closure $angle
      *
-     * @return float
+     * @return $this
      */
     public function cosh($angle)
     {
@@ -427,7 +427,7 @@ class FluentCalculator
      *
      * @param  float|Closure $number
      *
-     * @return double
+     * @return $this
      */
     public function exp($number)
     {
@@ -440,7 +440,7 @@ class FluentCalculator
      * @param  double|Closure $number
      * @param  double|Closure $base optional
      *
-     * @return double
+     * @return $this
      */
     public function log($number, $base = M_E)
     {
@@ -453,7 +453,7 @@ class FluentCalculator
      * @param  $number   |Closure     number
      * @param  $exponent |Closure   number
      *
-     * @return float
+     * @return $this
      */
     public function pow($number, $exponent)
     {
@@ -465,7 +465,7 @@ class FluentCalculator
      *
      * @param  number|mixed|Closure $angle The angle in radians.
      *
-     * @return number|mixed
+     * @return $this
      */
     public function sin($angle)
     {
@@ -477,7 +477,7 @@ class FluentCalculator
      *
      * @param  number|mixed|Closure $angle
      *
-     * @return number|mixed
+     * @return $this
      */
     public function sinh($angle)
     {
@@ -489,7 +489,7 @@ class FluentCalculator
      *
      * @param  number|mixed|Closure $number
      *
-     * @return number|mixed
+     * @return $this
      */
     public function sqrt($number)
     {
@@ -501,7 +501,7 @@ class FluentCalculator
      *
      * @param  number|mixed|Closure $angle The angle in radians.
      *
-     * @return number|mixed
+     * @return $this
      */
     public function tan($angle)
     {
@@ -513,7 +513,7 @@ class FluentCalculator
      *
      * @param  number|mixed|Closure $angle
      *
-     * @return number|mixed
+     * @return $this
      */
     public function tanh($angle)
     {
@@ -526,7 +526,7 @@ class FluentCalculator
      * @param  number|mixed|Closure $numberOne
      * @param  number|mixed|Closure $numberTwo
      *
-     * @return number|mixed
+     * @return $this
      */
     public function mod($numberOne, $numberTwo)
     {
@@ -538,7 +538,7 @@ class FluentCalculator
      *
      * @param  number|mixed|Closure $number
      *
-     * @return number|mixed
+     * @return $this
      */
     public function factorial($number)
     {
@@ -550,7 +550,7 @@ class FluentCalculator
      *
      * @param  float|Closure $number
      *
-     * @return int
+     * @return $this
      */
     public function floor($number)
     {
@@ -562,7 +562,7 @@ class FluentCalculator
      *
      * @param  double|Closure $number
      *
-     * @return double
+     * @return $this
      */
     public function log10($number)
     {
@@ -574,7 +574,7 @@ class FluentCalculator
      *
      * @param  array|Closure $numbers
      *
-     * @return number|mixed
+     * @return $this
      */
     public function max(array $numbers)
     {
@@ -586,7 +586,7 @@ class FluentCalculator
      *
      * @param  array|Closure $numbers
      *
-     * @return number|mixed
+     * @return $this
      */
     public function min(array $numbers)
     {
@@ -600,7 +600,7 @@ class FluentCalculator
      * @param int|Closure   $precision optional The number of digits to round to.
      * @param int|Closure   $mode      optional The rounding mode.
      *
-     * @return number|mixed
+     * @return $this
      */
     public function round($number, $precision = 0, $mode = PHP_ROUND_HALF_UP)
     {
@@ -612,7 +612,7 @@ class FluentCalculator
      *
      * @param  number|Closure $number
      *
-     * @return int
+     * @return $this
      */
     public function ceiling($number)
     {
@@ -624,7 +624,7 @@ class FluentCalculator
      *
      * @param  float|Closure $number
      *
-     * @return int|0 on failure
+     * @return $this
      */
     public function truncate($number)
     {
