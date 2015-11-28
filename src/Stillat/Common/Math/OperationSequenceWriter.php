@@ -102,8 +102,10 @@ final class OperationSequenceWriter
         return $this->getFunctionSymbol($func, $param);
     }
 
-    private function getFunctionSymbol($func, ... $params)
+    private function getFunctionSymbol()
     {
+        $params = func_get_args();
+        $func = array_shift($params);
         return $func . '(' . implode(',', $params) . ')';
     }
 

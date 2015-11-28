@@ -143,14 +143,13 @@ class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
             });
             $this->assertEquals('10 + -5 - (' . $func . '(-30))', $this->getExpression());
         }
-
         $this->calc->reset()->add()->factorial(10);
         $this->assertEquals('10!', $this->getExpression());
         $this->calc->reset()->add(10)->add()->factorial(5)->add()->group(function(FluentCalculator $calc) {
-           $calc->add()->factorial(20)->multiply(10)->subtract(2);
+            $calc->add()->factorial(20)->multiply(10)->subtract(2);
         });
 
-        var_dump($this->getExpression());
+        $this->assertEquals('10 + 5! + (20! * 10 - 2)', $this->getExpression());
     }
 
 }
