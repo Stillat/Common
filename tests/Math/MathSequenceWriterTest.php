@@ -7,6 +7,41 @@ use Stillat\Common\Math\OperationSequenceWriter;
 class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
 {
 
+    protected $singleParameterFunctions = [
+        'abs',
+        'acos',
+        'asin',
+        'atan',
+        'cos',
+        'cosh',
+        'exp',
+        'sin',
+        'sinh',
+        'sqrt',
+        'tan',
+        'tanh',
+        'floor',
+        'log10',
+        'ceiling',
+        'truncate'
+    ];
+
+    protected $twoParameterFunctions = [
+        'atan2',
+        'log',
+        'pow',
+        'mod'
+    ];
+
+    protected $threeParametersFunctions = [
+        'round'
+    ];
+
+    protected $arrayParameterFunctions = [
+        'max',
+        'min'
+    ];
+
     /**
      * @var FluentCalculator
      */
@@ -96,16 +131,26 @@ class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('(10)', $this->getExpression());
     }
 
-    public function testWriterCanHandleAbsFunction()
+    public function testWriterCanHandleSingleParameterFunctionsFunction()
     {
-        $this->calc->add()->abs(-10);
-        $this->assertEquals('abs(-10)', $this->getExpression());
-        $this->calc->reset()->add(10)->add()->abs(-5);
-        $this->assertEquals('10 + abs(-5)', $this->getExpression());
-        $this->calc->reset()->add(10)->add(-5)->subtract()->group(function(FluentCalculator $calc) {
-           $calc->add()->abs(-30);
+        foreach ($this->singleParameterFunctions as $func) {
+            $this->calc->reset()->add()->{$func}(-10);
+            $this->assertEquals($func . '(-10)', $this->getExpression());
+            $this->calc->reset()->add(10)->add()->{$func}(-5);
+            $this->assertEquals('10 + ' . $func . '(-5)', $this->getExpression());
+            $this->calc->reset()->add(10)->add(-5)->subtract()->group(function (FluentCalculator $calc) use ($func) {
+                $calc->add()->{$func}(-30);
+            });
+            $this->assertEquals('10 + -5 - (' . $func . '(-30))', $this->getExpression());
+        }
+
+        $this->calc->reset()->add()->factorial(10);
+        $this->assertEquals('10!', $this->getExpression());
+        $this->calc->reset()->add(10)->add()->factorial(5)->add()->group(function(FluentCalculator $calc) {
+           $calc->add()->factorial(20)->multiply(10)->subtract(2);
         });
-        $this->assertEquals('10 + -5 - (abs(-30))', $this->getExpression());
+
+        var_dump($this->getExpression());
     }
 
 }

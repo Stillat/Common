@@ -31,9 +31,48 @@ final class OperationSequenceWriter
         return $expression;
     }
 
+    protected $singleParameterFunctions = [
+        'abs',
+        'acos',
+        'asin',
+        'atan',
+        'cos',
+        'cosh',
+        'exp',
+        'sin',
+        'sinh',
+        'sqrt',
+        'tan',
+        'tanh',
+        'floor',
+        'log10',
+        'ceiling',
+        'truncate'
+    ];
+
+    protected $twoParameterFunctions = [
+        'atan2',
+        'log',
+        'pow',
+        'mod'
+    ];
+
+    protected $threeParametersFunctions = [
+        'round'
+    ];
+
+    protected $arrayParameterFunctions = [
+        'max',
+        'min'
+    ];
+
     private function getNextPart($historyItem, $value, $next)
     {
         $neighboringGroupOperation = ($next[0] == null);
+
+        if (in_array($historyItem, $this->singleParameterFunctions)) {
+            return $this->getSingleParameterFunction($historyItem, $value);
+        }
 
         switch ($historyItem) {
             case 'add':
@@ -51,16 +90,21 @@ final class OperationSequenceWriter
                 return '(' . $this->write($value) . ')';
             case 'group_operation':
                 return ($neighboringGroupOperation) ? '' : ' ' . $this->getOperatorSymbol($value, $next) . ' ';
-            case 'abs':
-                return $this->getFunctionSymbol('abs', $value);
+            case 'factorial':
+                return $value.'!';
             default:
                 return '';
         }
     }
 
+    protected function getSingleParameterFunction($func, $param)
+    {
+        return $this->getFunctionSymbol($func, $param);
+    }
+
     private function getFunctionSymbol($func, ... $params)
     {
-        return $func.'('.implode(',',$params).')';
+        return $func . '(' . implode(',', $params) . ')';
     }
 
     private function getOperatorSymbol($operator, $next)
