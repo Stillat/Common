@@ -311,86 +311,209 @@ class FluentCalculator
         return $this;
     }
 
+    /**
+     * Returns the absolute value of a number.
+     *
+     * @param  float $number
+     *
+     * @return float|int
+     */
     public function abs($number)
     {
         return $this->runExpressionFunction('abs', $number);
     }
 
+    /**
+     * Returns the arc cosine of a number.
+     *
+     * @param  float $number
+     *
+     * @return float The arc cosine of a number in radians.
+     */
     public function acos($number)
     {
         return $this->runExpressionFunction('acos', $number);
     }
 
+    /**
+     * Returns the arc sine of a number.
+     *
+     * @param  float $number
+     *
+     * @return float The arc sine of a number in radians.
+     */
     public function asin($number)
     {
         return $this->runExpressionFunction('asin', $number);
     }
 
+    /**
+     * Returns the arc tangent of a number.
+     *
+     * @param  float $number
+     *
+     * @return float The arc tangent of a number in radians.
+     */
     public function atan($number)
     {
         return $this->runExpressionFunction('atan', $number);
     }
 
+    /**
+     * Calculates the arc tangent of two variables.
+     *
+     * @param  float $x
+     * @param  float $y
+     *
+     * @return float
+     */
     public function atan2($x, $y)
     {
         return $this->runExpressionFunction2Param('atan2', $x, $y);
     }
 
+    /**
+     * Returns the cosine of the specified angle.
+     *
+     * @param  float $angle
+     *
+     * @return float
+     */
     public function cos($angle)
     {
         return $this->runExpressionFunction('cos', $angle);
     }
 
+    /**
+     * Returns the hyperbolic cosine of the angle.
+     *
+     * @param  float $angle
+     *
+     * @return float
+     */
     public function cosh($angle)
     {
         return $this->runExpressionFunction('cosh', $angle);
     }
 
+    /**
+     * Returns e raised to a given power.
+     *
+     * @param  float $number
+     *
+     * @return double
+     */
     public function exp($number)
     {
         return $this->runExpressionFunction('exp', $number);
     }
 
+    /**
+     * Returns the logarithm of a number in a specified base.
+     *
+     * @param  double $number
+     * @param  double $base optional
+     *
+     * @return double
+     */
     public function log($number, $base = M_E)
     {
         return $this->runExpressionFunction2Param('log', $number, $base);
     }
 
+    /**
+     * Returns a base number raised to an exponent.
+     *
+     * @param  $number     number
+     * @param  $exponent   number
+     *
+     * @return float
+     */
     public function pow($number, $exponent)
     {
         return $this->runExpressionFunction2Param('pow', $number, $exponent);
     }
 
+    /**
+     * Returns the sine of the given angle.
+     *
+     * @param  number|mixed $angle The angle in radians.
+     *
+     * @return number|mixed
+     */
     public function sin($angle)
     {
         return $this->runExpressionFunction('sin', $angle);
     }
 
+    /**
+     * Returns the hyperbolic sine of of the angle.
+     *
+     * @param  number|mixed $angle
+     *
+     * @return number|mixed
+     */
     public function sinh($angle)
     {
         return $this->runExpressionFunction('sinh', $angle);
     }
 
+    /**
+     * Returns the square root of a given number.
+     *
+     * @param  number|mixed $number
+     *
+     * @return number|mixed
+     */
     public function sqrt($number)
     {
         return $this->runExpressionFunction('sqrt', $number);
     }
 
+    /**
+     * Returns the tangent of a specified angle.
+     *
+     * @param  number|mixed $angle The angle in radians.
+     *
+     * @return number|mixed
+     */
     public function tan($angle)
     {
         return $this->runExpressionFunction('tan', $angle);
     }
 
+    /**
+     * Returns the hyperbolic tangent of an angle.
+     *
+     * @param  number|mixed $angle
+     *
+     * @return number|mixed
+     */
     public function tanh($angle)
     {
         return $this->runExpressionFunction('tanh', $angle);
     }
 
+    /**
+     * Returns the remainder of two numbers.
+     *
+     * @param  number|mixed $numberOne
+     * @param  number|mixed $numberTwo
+     *
+     * @return number|mixed
+     */
     public function mod($numberOne, $numberTwo)
     {
         return $this->runExpressionFunction2Param('mod', $numberOne, $numberTwo);
     }
 
+    /**
+     * Calculates the factorial of a number.
+     *
+     * @param  number|mixed $number
+     *
+     * @return number|mixed
+     */
     public function factorial($number)
     {
         return $this->runExpressionFunction('factorial', $number);
