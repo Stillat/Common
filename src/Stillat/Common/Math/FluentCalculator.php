@@ -297,52 +297,103 @@ class FluentCalculator
 
     protected function runExpressionFunction($func, $number)
     {
-        if ($number == null) {
-            $this->currentFunction = $func;
-            $this->addGroupOperationToHistory($func);
-        } else {
-            $this->applyFunctionOnExpressionEngine($func, $number);
-        }
+        $this->addToHistory($func, $number);
+        $this->applyFunctionOnExpressionEngine($func, $number);
 
         return $this;
     }
 
     protected function runExpressionFunction2Param($func, $number, $numberTwo)
     {
-        if ($number == null) {
-            $this->currentFunction = $func;
-            $this->addGroupOperationToHistory($func);
-        } else {
-            $this->applyFunctionOnExpressionEngine2Param($func, $number, $numberTwo);
-        }
+        $this->addToHistory($func, [$number, $numberTwo]);
+        $this->applyFunctionOnExpressionEngine2Param($func, $number, $numberTwo);
 
         return $this;
     }
 
-    public function abs($number = null)
+    public function abs($number)
     {
         return $this->runExpressionFunction('abs', $number);
     }
 
-    public function acos($number = null)
+    public function acos($number)
     {
         return $this->runExpressionFunction('acos', $number);
     }
 
-    public function asin($number = null)
+    public function asin($number)
     {
         return $this->runExpressionFunction('asin', $number);
     }
 
-    public function atan($number = null)
+    public function atan($number)
     {
         return $this->runExpressionFunction('atan', $number);
     }
 
-    public function atan2($x = null, $y = null)
+    public function atan2($x, $y)
     {
-        $this->expectValuesWhenNotNull($x, [&$y], 'Dividend parameter required when divisor parameter present.');
         return $this->runExpressionFunction2Param('atan2', $x, $y);
+    }
+
+    public function cos($angle)
+    {
+        return $this->runExpressionFunction('cos', $angle);
+    }
+
+    public function cosh($angle)
+    {
+        return $this->runExpressionFunction('cosh', $angle);
+    }
+
+    public function exp($number)
+    {
+        return $this->runExpressionFunction('exp', $number);
+    }
+
+    public function log($number, $base = M_E)
+    {
+        return $this->runExpressionFunction2Param('log', $number, $base);
+    }
+
+    public function pow($number, $exponent)
+    {
+        return $this->runExpressionFunction2Param('pow', $number, $exponent);
+    }
+
+    public function sin($angle)
+    {
+        return $this->runExpressionFunction('sin', $angle);
+    }
+
+    public function sinh($angle)
+    {
+        return $this->runExpressionFunction('sinh', $angle);
+    }
+
+    public function sqrt($number)
+    {
+        return $this->runExpressionFunction('sqrt', $number);
+    }
+
+    public function tan($angle)
+    {
+        return $this->runExpressionFunction('tan', $angle);
+    }
+
+    public function tanh($angle)
+    {
+        return $this->runExpressionFunction('tanh', $angle);
+    }
+
+    public function mod($numberOne, $numberTwo)
+    {
+        return $this->runExpressionFunction2Param('mod', $numberOne, $numberTwo);
+    }
+
+    public function factorial($number)
+    {
+        return $this->runExpressionFunction('factorial', $number);
     }
 
 

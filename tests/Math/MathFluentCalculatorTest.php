@@ -137,18 +137,87 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->calculator->get());
     }
 
-    /**
-     * @expectedException \Stillat\Common\Exceptions\Argument\MissingArgumentException
-     */
-    public function testFluentAtan2ThrowExceptionWhenMissingRequiredParameters()
-    {
-        $this->calculator->atan2(10);
-    }
-
     public function testFluentAtan2FunctionCalls()
     {
         $this->calculator->withPrecision(4)->add()->atan2(0.15, 0.45);
         $this->assertEquals(0.3218, $this->calculator->get());
+    }
+
+    public function testFluentCosFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->cos(0.23);
+        $this->assertEquals(0.9737, $this->calculator->get());
+    }
+
+    public function testFluentCoshFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->cosh(0.23);
+        $this->assertEquals(1.0266, $this->calculator->get());
+    }
+
+    public function testFluentExpFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->exp(0);
+        $this->assertEquals('1.0000', $this->calculator->get());
+        $this->calculator->reset()->add()->exp('2');
+        $this->assertEquals('7.3891', $this->calculator->get());
+
+    }
+
+    public function testFluentLogFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->log(2);
+        $this->assertEquals(0.6931, $this->calculator->get());
+    }
+
+    public function testFluentPowFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->pow(2, 32);
+        $this->assertEquals('4294967296.0000', $this->calculator->get());
+    }
+
+    public function testFluentSinFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->sin(7);
+        $this->assertEquals(0.6570, $this->calculator->get());
+    }
+
+    public function testFluentSinhFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->sinh(7);
+        $this->assertEquals(548.3161, $this->calculator->get());
+    }
+
+    public function testFluentSqrtFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->sqrt(144);
+        $this->assertEquals(12.0000, $this->calculator->get());
+    }
+
+    public function testFluentTanFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->tan(5);
+        $this->assertEquals(-3.3805, $this->calculator->get());
+    }
+
+    public function testFluentTanhFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->tanh(5);
+        $this->assertEquals(0.9999, $this->calculator->get());
+    }
+
+    public function testFluentModFunctionCalls()
+    {
+        $this->calculator->add()->mod(23, 233);
+        $this->assertEquals(23, $this->calculator->get());
+        $this->calculator->reset()->add()->mod(23, 23);
+        $this->assertEquals(0, (string)$this->calculator);
+    }
+
+    public function testFluentFactorialFunctionCalls()
+    {
+        $this->calculator->add()->factorial(5);
+        $this->assertEquals(120, $this->calculator->get());
     }
 
 }
