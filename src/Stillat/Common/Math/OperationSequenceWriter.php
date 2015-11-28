@@ -51,9 +51,16 @@ final class OperationSequenceWriter
                 return '(' . $this->write($value) . ')';
             case 'group_operation':
                 return ($neighboringGroupOperation) ? '' : ' ' . $this->getOperatorSymbol($value, $next) . ' ';
+            case 'abs':
+                return $this->getFunctionSymbol('abs', $value);
             default:
                 return '';
         }
+    }
+
+    private function getFunctionSymbol($func, ... $params)
+    {
+        return $func.'('.implode(',',$params).')';
     }
 
     private function getOperatorSymbol($operator, $next)

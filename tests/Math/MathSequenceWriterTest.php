@@ -96,4 +96,16 @@ class MathSequenceWriterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('(10)', $this->getExpression());
     }
 
+    public function testWriterCanHandleAbsFunction()
+    {
+        $this->calc->add()->abs(-10);
+        $this->assertEquals('abs(-10)', $this->getExpression());
+        $this->calc->reset()->add(10)->add()->abs(-5);
+        $this->assertEquals('10 + abs(-5)', $this->getExpression());
+        $this->calc->reset()->add(10)->add(-5)->subtract()->group(function(FluentCalculator $calc) {
+           $calc->add()->abs(-30);
+        });
+        $this->assertEquals('10 + -5 - (abs(-30))', $this->getExpression());
+    }
+
 }
