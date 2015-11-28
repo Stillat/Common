@@ -11,6 +11,8 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
      */
     protected $calculator;
 
+    protected $maxMinSet = [3, 23, 35, 1, 43.3];
+
     public function setUp()
     {
         $this->calculator = new FluentCalculator(new NativeExpressionEngine());
@@ -218,6 +220,50 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
     {
         $this->calculator->add()->factorial(5);
         $this->assertEquals(120, $this->calculator->get());
+    }
+
+    public function testFluentFloorFunctionCalls()
+    {
+        $this->calculator->add()->floor(0);
+        $this->assertEquals(0, $this->calculator->get());
+    }
+
+    public function testFluentTruncateFunctionCalls()
+    {
+        $this->calculator->add()->truncate('1.223');
+        $this->assertEquals(1, $this->calculator->get());
+    }
+
+    public function testFluentCeilingFunctionCalls()
+    {
+        $this->calculator->add()->ceiling(0.2);
+        $this->assertEquals(1,$this->calculator->get());
+    }
+
+    public function testFluentLog10FunctionCalls()
+    {
+        $this->calculator->add()->log10(10);
+        $this->assertEquals(1, $this->calculator->get());
+    }
+
+    public function testFluentMaxFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->max($this->maxMinSet);
+        $this->assertEquals('43.3000', $this->calculator->get());
+    }
+
+    public function testFluentMinFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->min($this->maxMinSet);
+        $this->assertEquals('1.0000', $this->calculator->get());
+    }
+
+    public function testFluentRoundFunctionCalls()
+    {
+        $this->calculator->withPrecision(4)->add()->round('10.4');
+        $this->assertEquals('10.0000', $this->calculator->get());
+        $this->calculator->reset()->add()->round('10.4', 1);
+        $this->assertEquals('10.4000', $this->calculator->get());
     }
 
 }

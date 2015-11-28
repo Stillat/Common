@@ -219,6 +219,13 @@ class FluentCalculator
             $this->expressionEngine->{$func}($number, $numberTwo)));
     }
 
+    protected function applyFunctionOnExpressionEngine3Param($func, $number, $numberTwo, $numberThree)
+    {
+        $this->addToHistory($func, $number);
+        $this->setCurrentValue($this->expressionEngine->{$this->currentOperation}($this->getCurrentValue(),
+            $this->expressionEngine->{$func}($number, $numberTwo, $numberThree)));
+    }
+
     /**
      * Adds a given number to the current value.
      *
@@ -280,7 +287,7 @@ class FluentCalculator
      *
      * @param $number
      *
-     * @throws \Stillat\Common\Exceptions\DivideByZeroException;
+     * @throws \Stillat\Common\Exceptions\Arithmetic\DivideByZeroException;
      * @return $this
      */
     public function divide($number = null)
@@ -307,6 +314,14 @@ class FluentCalculator
     {
         $this->addToHistory($func, [$number, $numberTwo]);
         $this->applyFunctionOnExpressionEngine2Param($func, $number, $numberTwo);
+
+        return $this;
+    }
+
+    protected function runExpressionFunction3Param($func, $number, $numberTwo, $numberThree)
+    {
+        $this->addToHistory($func, [$number, $numberTwo]);
+        $this->applyFunctionOnExpressionEngine3Param($func, $number, $numberTwo, $numberThree);
 
         return $this;
     }
@@ -517,6 +532,92 @@ class FluentCalculator
     public function factorial($number)
     {
         return $this->runExpressionFunction('factorial', $number);
+    }
+
+    /**
+     * Returns the next lowest integer of a number.
+     *
+     * @param  float $number
+     *
+     * @return int
+     */
+    public function floor($number)
+    {
+        return $this->runExpressionFunction('floor', $number);
+    }
+
+    /**
+     * Returns the base-10 logarithm of a number.
+     *
+     * @param  double $number
+     *
+     * @return double
+     */
+    public function log10($number)
+    {
+        return $this->runExpressionFunction('log10', $number);
+    }
+
+    /**
+     * Returns the highest value in the array of numbers.
+     *
+     * @param  array $numbers
+     *
+     * @return number|mixed
+     */
+    public function max(array $numbers)
+    {
+        return $this->runExpressionFunction('max', $numbers);
+    }
+
+    /**
+     * Returns the lowest value in the array of numbers.
+     *
+     * @param  array $numbers
+     *
+     * @return number|mixed
+     */
+    public function min(array $numbers)
+    {
+        return $this->runExpressionFunction('min', $numbers);
+    }
+
+    /**
+     * Rounds a number to the nearest value.
+     *
+     * @param float $number
+     * @param int   $precision optional The number of digits to round to.
+     * @param int   $mode      optional The rounding mode.
+     *
+     * @return number|mixed
+     */
+    public function round($number, $precision = 0, $mode = PHP_ROUND_HALF_UP)
+    {
+        return $this->runExpressionFunction3Param('round', $number, $precision, $mode);
+    }
+
+    /**
+     * Returns the next highest integer of a number.
+     *
+     * @param  number $number
+     *
+     * @return int
+     */
+    public function ceiling($number)
+    {
+        return $this->runExpressionFunction('ceiling', $number);
+    }
+
+    /**
+     * Returns the integral part of a given number.
+     *
+     * @param  float $number
+     *
+     * @return int|0 on failure
+     */
+    public function truncate($number)
+    {
+        return $this->runExpressionFunction('truncate', $number);
     }
 
 
