@@ -226,6 +226,12 @@ class FluentCalculator
             $this->expressionEngine->{$func}($number, $numberTwo, $numberThree)));
     }
 
+    protected function internalSetOperationModeWithHistory($mode)
+    {
+        $this->currentOperation = $mode;
+        $this->addGroupOperationToHistory($mode);
+    }
+
     /**
      * Adds a given number to the current value.
      *
@@ -236,8 +242,10 @@ class FluentCalculator
     public function add($number = null)
     {
         if ($number == null) {
-            $this->currentOperation = 'add';
-            $this->addGroupOperationToHistory('add');
+            $this->internalSetOperationModeWithHistory('add');
+        } elseif ($number instanceof Closure) {
+            $this->internalSetOperationModeWithHistory('add');
+            return $this->group($number);
         } else {
             $this->performOperationOnExpressionEngine('add', $number);
         }
@@ -254,8 +262,10 @@ class FluentCalculator
     public function subtract($number = null)
     {
         if ($number == null) {
-            $this->currentOperation = 'subtract';
-            $this->addGroupOperationToHistory('subtract');
+            $this->internalSetOperationModeWithHistory('subtract');
+        } elseif($number instanceof Closure) {
+            $this->internalSetOperationModeWithHistory('subtract');
+            return $this->group($number);
         } else {
             $this->performOperationOnExpressionEngine('subtract', $number);
         }
@@ -273,8 +283,10 @@ class FluentCalculator
     public function multiply($number = null)
     {
         if ($number === null) {
-            $this->currentOperation = 'multiply';
-            $this->addGroupOperationToHistory('multiply');
+            $this->internalSetOperationModeWithHistory('multiply');
+        } elseif ($number instanceof Closure) {
+            $this->internalSetOperationModeWithHistory('multiply');
+            return $this->group($number);
         } else {
             $this->performOperationOnExpressionEngine('multiply', $number);
         }
@@ -293,8 +305,10 @@ class FluentCalculator
     public function divide($number = null)
     {
         if ($number === null) {
-            $this->currentOperation = 'divide';
-            $this->addGroupOperationToHistory('divide');
+            $this->internalSetOperationModeWithHistory('divide');
+        } elseif ($number instanceof Closure) {
+            $this->internalSetOperationModeWithHistory('divide');
+            return $this->group($number);
         } else {
             $this->performOperationOnExpressionEngine('divide', $number);
         }
@@ -450,7 +464,7 @@ class FluentCalculator
     /**
      * Returns a base number raised to an exponent.
      *
-     * @param  $number   |Closure     number
+     * @param  $number |Closure     number
      * @param  $exponent |Closure   number
      *
      * @return $this
@@ -597,8 +611,8 @@ class FluentCalculator
      * Rounds a number to the nearest value.
      *
      * @param float|Closure $number
-     * @param int|Closure   $precision optional The number of digits to round to.
-     * @param int|Closure   $mode      optional The rounding mode.
+     * @param int|Closure $precision optional The number of digits to round to.
+     * @param int|Closure $mode optional The rounding mode.
      *
      * @return $this
      */

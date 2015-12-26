@@ -106,6 +106,33 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(18, $this->calculator->get());
     }
 
+    public function testOperationsCanAcceptGroupsDirectly()
+    {
+        $this->calculator->add(2)->subtract(4)->add(function (FluentCalculator $calc) {
+            $calc->add(3)->multiply(3);
+        });
+
+        $this->assertEquals(7, $this->calculator->get());
+
+        $this->calculator->reset()->add(10)->subtract(function (FluentCalculator $calc) {
+            $calc->add(5);
+        });
+
+        $this->assertEquals(5, $this->calculator->get());
+
+        $this->calculator->reset()->add(10)->multiply(function (FluentCalculator $calc) {
+            $calc->add(5);
+        });
+
+        $this->assertEquals(50, $this->calculator->get());
+
+        $this->calculator->reset()->add(10)->divide(function (FluentCalculator $calc) {
+            $calc->add(5);
+        });
+
+        $this->assertEquals(2, $this->calculator->get());
+    }
+
     public function testFluentAbsFunctionCalls()
     {
         $this->calculator->set(10)->add()->abs(-20)->abs(-20)->abs(-200);
@@ -237,7 +264,7 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
     public function testFluentCeilingFunctionCalls()
     {
         $this->calculator->add()->ceiling(0.2);
-        $this->assertEquals(1,$this->calculator->get());
+        $this->assertEquals(1, $this->calculator->get());
     }
 
     public function testFluentLog10FunctionCalls()
@@ -268,8 +295,8 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
 
     public function testFunctionsCanAcceptClosures()
     {
-        $this->calculator->add()->abs(function() {
-           return -10 * 1000;
+        $this->calculator->add()->abs(function () {
+            return -10 * 1000;
         });
 
         $this->assertEquals(10000, $this->calculator->get());
@@ -278,7 +305,7 @@ class MathFluentCalculatorTest extends PHPUnit_Framework_TestCase
     public function testFunctionsCanAcceptClosuresWithFluentInstance()
     {
         $this->calculator->add()->abs(function (FluentCalculator $calc) {
-           return $calc->set(10)->add(30)->multiply(-1);
+            return $calc->set(10)->add(30)->multiply(-1);
         });
 
         $this->assertEquals(40, $this->calculator->get());
